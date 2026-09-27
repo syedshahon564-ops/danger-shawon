@@ -424,7 +424,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (customDomain && customDomain.trim()) {
             return customDomain.trim().replace(/\/+$/, '');
         }
-        return window.location.origin + window.location.pathname.replace('admin.html', '').replace(/\/$/, '');
+        if (window.location.hostname.includes('github.io')) {
+            return window.location.origin + window.location.pathname.replace('admin.html', '').replace(/\/$/, '');
+        }
+        return 'https://syedshahon564-ops.github.io/danger-shawon';
     }
 
     function generateClientShareLink() {
@@ -967,18 +970,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const domainStatusBadge = document.getElementById('domainStatusBadge');
 
     function updateDomainUI() {
-        const saved = localStorage.getItem('custom_public_domain') || '';
+        const saved = localStorage.getItem('custom_public_domain') || 'https://syedshahon564-ops.github.io/danger-shawon';
         if (inputPublicDomain) inputPublicDomain.value = saved;
         if (domainStatusBadge) {
-            if (saved) {
-                domainStatusBadge.textContent = '🌐 LIVE DOMAIN ACTIVE';
-                domainStatusBadge.style.color = '#10b981';
-                domainStatusBadge.style.background = 'rgba(16, 185, 129, 0.2)';
-            } else {
-                domainStatusBadge.textContent = '🖥️ LOCALHOST MODE';
-                domainStatusBadge.style.color = '#38bdf8';
-                domainStatusBadge.style.background = 'rgba(56, 189, 248, 0.15)';
-            }
+            domainStatusBadge.textContent = '🌐 GITHUB PAGES ACTIVE';
+            domainStatusBadge.style.color = '#10b981';
+            domainStatusBadge.style.background = 'rgba(16, 185, 129, 0.2)';
         }
     }
 

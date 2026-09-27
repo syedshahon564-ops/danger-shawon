@@ -307,7 +307,9 @@
             const savedDomain = localStorage.getItem('custom_public_domain');
             const origin = (savedDomain && savedDomain.trim()) 
                 ? savedDomain.trim().replace(/\/+$/, '') 
-                : (window.location.origin + window.location.pathname.replace('setup.html', '').replace(/\/$/, ''));
+                : (window.location.hostname.includes('github.io')
+                    ? (window.location.origin + window.location.pathname.replace('setup.html', '').replace(/\/$/, ''))
+                    : 'https://syedshahon564-ops.github.io/danger-shawon');
             const params = new URLSearchParams({
                 u: slug,
                 theme: chosenTheme,
