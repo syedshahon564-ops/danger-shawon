@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahon Cyber Admin OS | Control Dashboard & Client Link Generator</title>
+    <link rel="icon" type="image/png" href="./assets/media/shahon_avatar.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body class="admin-body">
+
+    <!-- Master Owner Superadmin Login Overlay -->
+    <div class="master-auth-overlay" id="masterAuthOverlay">
+        <div class="master-auth-card">
+            <span class="master-auth-icon">👑</span>
+            <h2 class="master-auth-title">Shahon Master Admin OS</h2>
+            <p class="master-auth-desc">Enter your Owner Master PIN or Discord ID to access client templates, sales tracking & store control.</p>
+            <input type="password" id="masterPinInput" class="master-pin-input" placeholder="••••••••" autofocus>
+            <button type="button" id="masterUnlockBtn" class="master-auth-btn">⚡ Unlock Master OS</button>
+            <div id="masterAuthError" style="color:#ef4444; font-size:12px; margin-top:12px; display:none;">Incorrect Master PIN or Discord ID.</div>
+            <div style="font-size:11.5px; color:#64748b; margin-top:14px;">Default Owner PIN: <code>shahon2026</code> or your Discord ID.</div>
+        </div>
+    </div>
+
+    <!-- Top Navigation Header -->
+    <header class="admin-navbar">
+        <div class="admin-logo">
+            <span class="admin-logo-crown">👑</span>
+            <span>SHAHON OS ADMIN</span>
+            <span class="admin-badge-version">v2.4 PRO</span>
+        </div>
+
+        <div class="admin-nav-actions">
+            <a href="setup.html" target="_blank" class="btn-admin btn-admin-outline" title="Open buyer onboarding portal">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>👥 Buyer Portal</span>
+            </a>
+            <button type="button" id="resetDefaultBtn" class="btn-admin btn-admin-outline" title="Restore Shahon verified preset">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                <span>Reset Defaults</span>
+            </button>
+            <button type="button" id="saveChangesBtn" class="btn-admin btn-admin-primary" title="Save changes directly to live site">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                <span>Save & Apply Live</span>
+            </button>
+            <button type="button" id="lockAdminBtn" class="btn-admin btn-admin-outline" title="Lock admin dashboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Lock</span>
+            </button>
+            <a href="index.html" target="_blank" class="btn-admin btn-admin-outline" title="Open live bio page in new tab">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>View Live Bio Page</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Admin Layout Grid -->
+    <div class="admin-layout">
+
+        <!-- Left Navigation Sidebar -->
+        <aside class="admin-sidebar">
+            <button type="button" class="sidebar-tab-btn active" data-tab="clients">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>👥 Clients & Sales</span>
+            </button>
+            <button type="button" class="sidebar-tab-btn" data-tab="templates">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span>🎨 12 Templates & Links</span>
+            </button>
+            <button type="button" class="sidebar-tab-btn" data-tab="profile">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Profile & Identity</span>
+            </button>
+            <button type="button" class="sidebar-tab-btn" data-tab="discord">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1a14.66 14.66 0 0 0-4.58 0a10.14 10.14 0 0 0-.53-1.1a16 16 0 0 0-4.13 1.3a17.33 17.33 0 0 0-3 11.59a16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83a3.39 3.39 0 0 0 .42-.33a11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84a12.41 12.41 0 0 0 1.08 1.78a16.44 16.44 0 0 0 5.06-2.59a17.22 17.22 0 0 0-3-11.59a16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.93 1.93 0 0 1 1.8 2a1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.92 1.92 0 0 1 1.8 2a1.92 1.92 0 0 1-1.8 2z"/></svg>
+                <span>Discord & Server</span>
+            </button>
+            <button type="button" class="sidebar-tab-btn" data-tab="video">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <span>🎥 Video Engine API</span>
+            </button>
+            <button type="button" class="sidebar-tab-btn" data-tab="effects">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+                <span>Effects & Avatar</span>
+            </button>
+            <button type="button" class="sidebar-tab-btn" data-tab="socials">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <span>Social Profiles</span>
+            </button>
+            <button type="button" class="sidebar-tab-btn" data-tab="export">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <span>Share Link & Export</span>
+            </button>
+        </aside>
+
+        <!-- Center Settings Content Column -->
+        <main class="admin-content-col">
+
+            <!-- TAB 0: CLIENT TEMPLATES & BUYERS MANAGER -->
+            <div class="tab-pane active" id="pane-clients">
+                <div class="pane-header">
+                    <h2 class="pane-title">Client Templates & Sales Registry</h2>
+                    <p class="pane-subtitle">Monitor and manage all client profiles registered through your store onboarding system. You have full superadmin access.</p>
+                </div>
+
+                <div class="client-stats-grid">
+                    <div class="client-stat-card">
+                        <div class="client-stat-num purple" id="statTotalClients">0</div>
+                        <div class="client-stat-label">Templates Sold / Active</div>
+                    </div>
+                    <div class="client-stat-card">
+                        <div class="client-stat-num emerald" id="statActiveLinks">100%</div>
+                        <div class="client-stat-label">Database Health</div>
+                    </div>
+                    <div class="client-stat-card">
+                        <div class="client-stat-num" id="statStoreMode">MASTER</div>
+                        <div class="client-stat-label">Storefront Suite</div>
+                    </div>
+                </div>
+
+                <!-- Onboarding Share Box -->
+                <div class="share-link-box" style="margin-bottom:24px;">
+                    <div class="share-link-header">
+                        <h4>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                            <span>Buyer Onboarding Invite Link (setup.html)</span>
+                        </h4>
+                    </div>
+                    <p style="font-size:12.5px; color:#cbd5e1; margin-bottom:12px; line-height:1.5;">
+                        When you sell a template, simply send this link to your buyer. They link their Discord in 1 click and their custom bio is created instantly!
+                    </p>
+                    <div class="share-link-input-wrap">
+                        <input type="text" id="buyerPortalLinkInput" readonly>
+                        <button type="button" id="copyBuyerPortalBtn" class="btn-admin btn-admin-primary">📋 Copy Link to Send Buyer</button>
+                        <a href="setup.html" target="_blank" class="btn-admin btn-admin-outline" style="text-decoration:none;">🚀 Preview Portal</a>
+                    </div>
+                </div>
+
+                <!-- Client Database Table -->
+                <div class="admin-card" style="padding:0; overflow:hidden;">
+                    <div style="padding:18px 20px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
+                        <h3 class="card-subheading" style="margin:0;">📦 Registered Client Bio Profiles</h3>
+                        <button type="button" id="refreshClientsBtn" class="btn-admin btn-admin-outline" style="padding:6px 12px; font-size:12px;">🔄 Refresh List</button>
+                    </div>
+                    <div class="client-table-wrap">
+                        <table class="client-table">
+                            <thead>
+                                <tr>
+                                    <th>Client Profile</th>
+                                    <th>Discord ID</th>
+                                    <th>Slug / Link</th>
+                                    <th>Registered Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientsTableBody">
+                                <!-- Injected dynamically by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: 12 TEMPLATES & LINK GENERATOR -->
+            <div class="tab-pane" id="pane-templates">
+                <div class="pane-header">
+                    <h2 class="pane-title">🎨 12 Luxury Templates & Instant Client Link Generator</h2>
+                    <p class="pane-subtitle">
+                        Every template has its own unique blank showcase link to send to buyers. You can also generate personalized client bio links directly from here with their Discord ID & server!
+                    </p>
+                </div>
+
+                <!-- Public Live Domain Configuration Card -->
+                <div class="admin-card" style="border: 1px solid rgba(56, 189, 248, 0.3); background: rgba(14, 165, 233, 0.04);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                        <h3 class="card-subheading" style="margin-bottom:0; color:#38bdf8;">🌐 Public Website Domain / Host URL (সার্বজনীন লাইভ ডোমেইন)</h3>
+                        <span id="domainStatusBadge" style="font-size:11px; padding:3px 8px; border-radius:10px; background:rgba(56,189,248,0.15); color:#38bdf8; font-weight:600;">🖥️ LOCALHOST MODE</span>
+                    </div>
+                    <p style="font-size:12px; color:#94a3b8; margin-bottom:12px; line-height:1.5;">
+                        আপনার সাইটটি যখন Vercel, GitHub Pages বা নিজের ডোমেইনে রাখবেন, তখন সেই লিংকটি এখানে সেভ করুন (যেমন <code>https://shahon-bio.vercel.app</code>)। তাহলে নিচের ১২টি টেমপ্লেট ও ক্লায়েন্ট লিংকের সব "Copy" বাটন সরাসরি সারা বিশ্বের সবার জন্য কাজ করা লাইভ লিংক তৈরি করবে!
+                    </p>
+                    <div class="api-test-row">
+                        <input type="text" id="inputPublicDomain" placeholder="https://shahon-bio.vercel.app অথবা https://yourdomain.com (খালি রাখলে লোকালহোস্ট)">
+                        <button type="button" id="btnSavePublicDomain" class="btn-admin btn-admin-primary">💾 Save Domain</button>
+                    </div>
+                </div>
+
+                <!-- 1-Click Client Link Creator Card -->
+                <div class="admin-card">
+                    <h3 class="card-subheading">⚡ 1-Click Client Link Creator (সরাসরি কাস্টম লিংক তৈরি করুন)</h3>
+                    <p style="font-size:12.5px; color:#cbd5e1; margin-bottom:14px; line-height:1.5;">
+                        Select any of the 12 templates, type your client's Discord User ID, and click generate. It instantly creates their custom bio link and saves it into your database!
+                    </p>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="tplGenTheme">Select Template Theme</label>
+                            <select id="tplGenTheme">
+                                <option value="cyber_rose">🌹 #1 Dark Cyber Rose (Default Luxury)</option>
+                                <option value="crimson_samurai">⚔️ #2 Crimson Blood Samurai</option>
+                                <option value="neon_cyberpunk">⚡ #3 Neon Cyberpunk 2077</option>
+                                <option value="lofi_rain">🌧️ #4 Aesthetic Lo-Fi Rain</option>
+                                <option value="emerald_matrix">💻 #5 Emerald Matrix Hacker</option>
+                                <option value="royal_gold">👑 #6 Royal 24K Gold Sovereign</option>
+                                <option value="ice_frost">❄️ #7 Glacial Ice Frost</option>
+                                <option value="dark_sakura">🌸 #8 Dark Cherry Blossom</option>
+                                <option value="synthwave_80s">🌆 #9 Retro Synthwave 80s</option>
+                                <option value="obsidian_minimal">⬛ #10 Obsidian Stealth Minimal</option>
+                                <option value="toxic_grunge">☣️ #11 Toxic Acid Streetwear</option>
+                                <option value="celestial_galaxy">🌌 #12 Celestial Cosmic Galaxy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tplGenUserId">Buyer Discord User ID</label>
+                            <input type="text" id="tplGenUserId" placeholder="e.g. 1525762942081962096">
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="tplGenDisplayName">Custom Display Name (Optional)</label>
+                            <input type="text" id="tplGenDisplayName" placeholder="e.g. DANGER SHAWON (Leave blank to auto-fetch)">
+                        </div>
+                        <div class="form-group">
+                            <label for="tplGenServer">Discord Server Invite (Optional)</label>
+                            <input type="text" id="tplGenServer" placeholder="e.g. https://discord.gg/yourserver">
+                        </div>
+                    </div>
+
+                    <button type="button" id="btnTplGenerateLink" class="btn-admin btn-admin-primary" style="width:100%; justify-content:center; padding:12px 18px; margin-top:8px;">
+                        <span>🚀 Generate & Copy Client Bio Link</span>
+                    </button>
+
+                    <!-- Link Output Box -->
+                    <div id="tplGenResultBox" class="client-success-box" style="margin-top:16px;">
+                        <label style="color:#10b981; font-weight:700; font-size:12px; text-transform:uppercase;">🎉 Generated Client Bio Link:</label>
+                        <div class="share-link-input-wrap" style="margin-top:8px;">
+                            <input type="text" id="tplGenResultInput" readonly>
+                            <button type="button" id="btnCopyTplResultLink" class="btn-admin btn-admin-primary">📋 Copy Link</button>
+                            <a id="btnOpenTplResultLink" href="index.html" target="_blank" class="btn-admin btn-admin-outline" style="text-decoration:none;">🚀 Open Bio</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12 Showcase Template Links Grid -->
+                <div class="admin-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+                        <div>
+                            <h3 class="card-subheading" style="margin-bottom:2px;">📦 12 Ready-Made Blank Showcase Links</h3>
+                            <small style="color:#94a3b8;">Send these blank preview links to potential buyers so they can browse and choose their favorite template!</small>
+                        </div>
+                    </div>
+
+                    <div class="templates-cards-grid" id="templatesCardsGrid">
+                        <!-- Rendered dynamically by admin.js from TEMPLATES_REGISTRY -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 1: PROFILE & IDENTITY -->
+            <div class="tab-pane" id="pane-profile">
+                <div class="pane-header">
+                    <h2 class="pane-title">Profile & Presence Identity</h2>
+                    <p class="pane-subtitle">Customize your visual identity, verified display name, handle, presence mode, and signature quote.</p>
+                </div>
+
+                <div class="admin-card">
+                    <h3 class="card-subheading">✨ Core Bio Information</h3>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="inputDisplayName">Display Name</label>
+                            <input type="text" id="inputDisplayName" placeholder="e.g. DANGER SHAWON">
+                            <small>Main large profile name displayed with gold gradient & moon badge.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputUsername">Username / Handle</label>
+                            <input type="text" id="inputUsername" placeholder="e.g. mjshahon">
+                            <small>Discord username handle displayed with subtle @ tag.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="inputStatus">Presence Status Mode</label>
+                            <select id="inputStatus">
+                                <option value="dnd">Do Not Disturb (Red Circle with White Dash - DND)</option>
+                                <option value="online">Online (Neon Emerald)</option>
+                                <option value="idle">Idle / Away (Amber Crescent)</option>
+                                <option value="offline">Offline / Invisible (Muted Grey)</option>
+                            </select>
+                            <small>Controls the avatar status badge and presence indicator.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmojis">Status Emojis / Glyphs</label>
+                            <input type="text" id="inputEmojis" placeholder="e.g. 🎮 🖥️ ⚔️ ⚙️">
+                            <small>Custom emojis displayed under your handle badge.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputQuote">Signature Bio Quote</label>
+                        <input type="text" id="inputQuote" placeholder='e.g. "Legends don&apos;t announce themselves. They"'>
+                        <small>Quote placed inside the glowing italic card header box.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputBio">Bio Description</label>
+                        <textarea id="inputBio" rows="3" placeholder="Enter extended bio description..."></textarea>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3 class="card-subheading">🌐 Meta & Stats</h3>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="inputLocation">Location</label>
+                            <input type="text" id="inputLocation" placeholder="e.g. Bangladesh">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTimezone">Timezone</label>
+                            <input type="text" id="inputTimezone" placeholder="e.g. Asia/Dhaka">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputViews">Views Counter Offset</label>
+                        <input type="number" id="inputViews" placeholder="14280">
+                        <small>Base view counter displayed on the profile.</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: DISCORD & SERVER -->
+            <div class="tab-pane" id="pane-discord">
+                <div class="pane-header">
+                    <h2 class="pane-title">Discord API & Server Integration</h2>
+                    <p class="pane-subtitle">Connect any 18-digit Discord Snowflake ID, 1-Click Authorize via Discord OAuth2, and sync Community Server invite links.</p>
+                </div>
+
+                <!-- Card A: Universal Instant Discord User ID Sync -->
+                <div class="admin-card">
+                    <h3 class="card-subheading">⚡ Universal Discord User Resolver (Any User ID)</h3>
+                    <div class="form-group">
+                        <label for="inputUserId">Discord User ID (Snowflake)</label>
+                        <div class="api-test-row">
+                            <input type="text" id="inputUserId" placeholder="e.g. 1525762942081962096">
+                            <button type="button" id="testDiscordBtn" class="btn-admin btn-admin-primary">⚡ Test & Sync API</button>
+                        </div>
+                        <small>Enter ANY Discord User ID in the world. Automatically retrieves Display Name, Username, Avatar CDN & Wings Decoration!</small>
+                        <div id="discordTestResult" class="api-status-box"></div>
+                    </div>
+                </div>
+
+                <!-- Card B: 1-Click Authorize with Discord (OAuth2) -->
+                <div class="admin-card">
+                    <h3 class="card-subheading">🔑 1-Click Authorize with Discord (No Password Needed)</h3>
+                    <p style="font-size:12.5px; color:#cbd5e1; margin-bottom:14px; line-height:1.5;">
+                        Log in directly using your Discord account saved in Chrome or the Discord App. No password required — simply click authorize to import your entire profile!
+                    </p>
+                    <div class="form-group">
+                        <label for="inputOAuthClientId">Discord Application Client ID (Optional)</label>
+                        <input type="text" id="inputOAuthClientId" placeholder="Default App ID or your own Bot Client ID from discord.com/developers">
+                        <small>If you have your own Discord Developer App, paste its Client ID here to authorize under your branding.</small>
+                    </div>
+                    <button type="button" id="oauthDiscordBtn" class="btn-admin btn-admin-primary" style="width:100%; justify-content:center; padding:11px 16px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1a14.66 14.66 0 0 0-4.58 0a10.14 10.14 0 0 0-.53-1.1a16 16 0 0 0-4.13 1.3a17.33 17.33 0 0 0-3 11.59a16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83a3.39 3.39 0 0 0 .42-.33a11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84a12.41 12.41 0 0 0 1.08 1.78a16.44 16.44 0 0 0 5.06-2.59a17.22 17.22 0 0 0-3-11.59a16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.93 1.93 0 0 1 1.8 2a1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.92 1.92 0 0 1 1.8 2a1.92 1.92 0 0 1-1.8 2z"/></svg>
+                        <span>⚡ 1-Click Authorize with Discord (No Password)</span>
+                    </button>
+                </div>
+
+                <!-- Card C: Discord Community Server Widget -->
+                <div class="admin-card">
+                    <h3 class="card-subheading">🏰 Discord Community Servers</h3>
+                    <div class="form-group">
+                        <label for="inputServerInvite">Primary Server Invite Code or URL</label>
+                        <div class="api-test-row">
+                            <input type="text" id="inputServerInvite" placeholder="e.g. https://discord.gg/yourserver or yourserver">
+                            <button type="button" id="testServerBtn" class="btn-admin btn-admin-outline">🏰 Test Server</button>
+                        </div>
+                        <small>Fetches live member counts, server icon, and sets the Join button URL.</small>
+                        <div id="serverTestResult" class="api-status-box"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSecondServerInvite">Secondary Server Invite Code (Optional)</label>
+                        <input type="text" id="inputSecondServerInvite" placeholder="e.g. yoursecondserver">
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: VIDEO ENGINE STUDIO & API -->
+            <div class="tab-pane" id="pane-video">
+                <div class="pane-header">
+                    <h2 class="pane-title">🎬 Dynamic Video Engine API & Background Studio</h2>
+                    <p class="pane-subtitle">Paste ANY link from YouTube, TikTok, Instagram Reels, Facebook, or direct MP4/WebM. Our Python yt-dlp API downloads and loops it smoothly in the background, or streams it directly!</p>
+                </div>
+
+                <!-- Video Source Card -->
+                <div class="admin-card">
+                    <h3 class="card-subheading">⚡ Background Video Switcher</h3>
+                    
+                    <div class="form-group">
+                        <label for="inputBgVideoUrl">Video URL (YouTube / TikTok / Instagram / Facebook / Direct MP4)</label>
+                        <div class="api-test-row">
+                            <input type="text" id="inputBgVideoUrl" placeholder="https://www.youtube.com/watch?v=... or TikTok / Instagram / direct .mp4">
+                            <button type="button" id="btnDirectStreamBgVideo" class="btn-admin btn-admin-primary" title="Apply video immediately without download wait">
+                                ⚡ Instant Apply (0s Wait)
+                            </button>
+                            <button type="button" id="btnDownloadBgVideo" class="btn-admin btn-admin-outline" title="Download video file locally via Python yt-dlp API">
+                                📥 Download MP4 (API)
+                            </button>
+                        </div>
+                        <small>💡 <strong>Instant Apply (0s Wait)</strong> activates the video immediately in HD with zero waiting and zero bot errors! <strong>Download MP4</strong> saves it locally to your computer via server.py.</small>
+                    </div>
+
+                    <!-- Live Download Status & Progress -->
+                    <div id="videoProgressWrapper" class="video-progress-box" style="display:none;">
+                        <div class="video-progress-header">
+                            <span id="videoProgressLabel" style="font-size:12.5px; font-weight:600; color:#c084fc;">Downloading video...</span>
+                            <span id="videoProgressPercent" style="font-family:var(--font-mono); font-size:12px; color:#10b981;">0%</span>
+                        </div>
+                        <div class="video-progress-track">
+                            <div id="videoProgressBar" class="video-progress-fill" style="width:0%;"></div>
+                        </div>
+                        <div id="videoStatusNote" style="font-size:11.5px; color:#94a3b8; margin-top:6px;">Connecting to yt-dlp engine on server.py...</div>
+                    </div>
+
+                    <!-- Active Background Indicator -->
+                    <div class="active-video-status-row">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span class="video-status-dot" id="videoStatusDot"></span>
+                            <div>
+                                <div style="font-size:12.5px; font-weight:600; color:#fff;" id="activeVideoTitle">Default Track Sync</div>
+                                <div style="font-size:11px; color:#94a3b8;" id="activeVideoSub">Background video changes with active music playlist track</div>
+                            </div>
+                        </div>
+                        <button type="button" id="btnResetBgVideo" class="btn-admin btn-admin-outline" style="padding:6px 12px; font-size:12px;">
+                            🔄 Reset to Default
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video Preview & Presets Card -->
+                <div class="admin-card">
+                    <h3 class="card-subheading">📺 Live Video Preview & Aesthetic Presets</h3>
+
+                    <div class="video-preview-frame">
+                        <video id="adminVideoPlayer" autoplay muted loop playsinline src="./assets/media/track_yad.mp4"></video>
+                        <iframe id="adminYtPreviewPlayer" style="display:none; width:100%; height:100%; border:none;" allow="autoplay"></iframe>
+                        <div class="video-preview-badge">
+                            <span class="preview-live-pulse"></span>
+                            <span id="videoPreviewTypeBadge">LOCAL MP4</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:20px;">
+                        <label style="font-size:12.5px; font-weight:600; color:#cbd5e1; margin-bottom:10px; display:block;">✨ 1-Click Aesthetic Presets:</label>
+                        <div class="video-presets-grid">
+                            <div class="video-preset-card" data-preset="yad">
+                                <div class="preset-title">⚡ Classic Yad</div>
+                                <div class="preset-tag">Default Dark Cyber</div>
+                            </div>
+                            <div class="video-preset-card" data-preset="track1">
+                                <div class="preset-title">🌃 Neon Vibes</div>
+                                <div class="preset-tag">Track 1 Video</div>
+                            </div>
+                            <div class="video-preset-card" data-preset="track2">
+                                <div class="preset-title">☕ Espresso Aesthetic</div>
+                                <div class="preset-tag">Track 2 Video</div>
+                            </div>
+                            <div class="video-preset-card" data-preset="track4">
+                                <div class="preset-title">🌙 Slowed Collide</div>
+                                <div class="preset-tag">Track 4 Video</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: EFFECTS & AVATAR -->
+            <div class="tab-pane" id="pane-effects">
+                <div class="pane-header">
+                    <h2 class="pane-title">Appearance & Discord Shop Effects</h2>
+                    <p class="pane-subtitle">Manage Discord Shop White Roses floral frame, avatar decoration wings, and custom avatars.</p>
+                </div>
+
+                <div class="admin-card">
+                    <h3 class="card-subheading">🌹 Profile Frame Effect</h3>
+                    <div class="form-group">
+                        <label for="inputEffect">Profile Frame Effect</label>
+                        <select id="inputEffect">
+                            <option value="white_roses">Luminous White Roses & Silver Vines (Discord Shop Effect)</option>
+                            <option value="none">None (Clean Minimalist Glass Card)</option>
+                        </select>
+                        <small>Renders glowing white roses garlands, climbing silver vines, and diamond sparkles around the card.</small>
+                    </div>
+                </div>
+
+                <div class="admin-card">
+                    <h3 class="card-subheading">🖼️ Custom Avatar & Nitro Decoration</h3>
+                    <div class="form-group">
+                        <label for="inputAvatar">Avatar Image URL or Local Path</label>
+                        <input type="text" id="inputAvatar" placeholder="./assets/media/shahon_avatar.png or https://cdn.discordapp.com/...">
+                        <small>Supports PNG, JPG, GIF, WebP, or Discord CDN links.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAvatarDeco">Avatar Decoration URL (Wings / Nitro Frame)</label>
+                        <input type="text" id="inputAvatarDeco" placeholder="./assets/media/avatar_decoration.png or Discord asset URL">
+                        <small>Overlay PNG/GIF decoration frame around avatar. Select "none" to remove.</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: SOCIAL PROFILES -->
+            <div class="tab-pane" id="pane-socials">
+                <div class="pane-header">
+                    <h2 class="pane-title">Connected Social Links</h2>
+                    <p class="pane-subtitle">Update social media profile URLs and handles displayed in your bio links carousel.</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="social_discord">Discord Invite / Profile</label>
+                            <input type="text" id="social_discord" placeholder="https://discord.gg/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="social_instagram">Instagram Profile</label>
+                            <input type="text" id="social_instagram" placeholder="https://instagram.com/...">
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="social_telegram">Telegram Channel / PM</label>
+                            <input type="text" id="social_telegram" placeholder="https://t.me/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="social_spotify">Spotify Profile / Playlist</label>
+                            <input type="text" id="social_spotify" placeholder="https://open.spotify.com/user/...">
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="social_github">GitHub Profile</label>
+                            <input type="text" id="social_github" placeholder="https://github.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="social_steam">Steam Community Profile</label>
+                            <input type="text" id="social_steam" placeholder="https://steamcommunity.com/id/...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: SHARE LINK & EXPORT -->
+            <div class="tab-pane" id="pane-export">
+                <div class="pane-header">
+                    <h2 class="pane-title">Client Shareable Link & Config Exporter</h2>
+                    <p class="pane-subtitle">Generate 1-click personalized URLs for your template buyers or export ready-to-use config.js code.</p>
+                </div>
+
+                <!-- Template Shop Feature: Client Shareable Link Box -->
+                <div class="share-link-box">
+                    <div class="share-link-header">
+                        <h4>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                            <span>Client Shareable Link (Template Shop URL)</span>
+                        </h4>
+                    </div>
+                    <p style="font-size:12.5px; color:#cbd5e1; margin-bottom:14px; line-height:1.5;">
+                        Selling this template to a client? Simply configure their settings above and send them this personalized link.
+                        When they open this link, their custom profile details load automatically with <strong>zero code editing</strong>!
+                    </p>
+                    <div class="share-link-input-wrap">
+                        <input type="text" id="clientShareLinkInput" readonly>
+                        <button type="button" id="copyShareLinkBtn" class="btn-admin btn-admin-primary">📋 Copy Link</button>
+                        <button type="button" id="testShareLinkBtn" class="btn-admin btn-admin-outline">🚀 Test Link</button>
+                    </div>
+                </div>
+
+                <!-- Code Exporter Box -->
+                <div class="admin-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                        <h3 class="card-subheading" style="margin-bottom:0;">💾 Permanent config.js Export</h3>
+                        <div style="display:flex; gap:8px;">
+                            <button type="button" id="downloadConfigBtn" class="btn-admin btn-admin-success">📥 Download config.js</button>
+                            <button type="button" id="copyConfigBtn" class="btn-admin btn-admin-outline">📋 Copy Code</button>
+                        </div>
+                    </div>
+                    <pre class="export-code-box"><code id="exportCodeBox">Generating configuration code...</code></pre>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Right Side: Real-Time Live Preview Card Column -->
+        <aside class="admin-preview-col">
+            <div class="preview-title-bar">
+                <h3>Live Real-Time Card Preview</h3>
+                <span style="font-size:11px; color:#10b981; display:flex; align-items:center; gap:6px; font-weight:600;">
+                    <span style="width:7px; height:7px; background:#10b981; border-radius:50%; box-shadow:0 0 8px #10b981;"></span>
+                    REACTIVE
+                </span>
+            </div>
+
+            <!-- Preview Card Outer Container -->
+            <div class="preview-card-outer" id="previewCardWrapper">
+
+                <!-- Discord Shop Profile Effect: Luminous White Roses Floral Frame -->
+                <div class="discord-profile-effect roses-frame" id="prevDiscordProfileEffect">
+                    <!-- Top Floral Garland -->
+                    <div class="roses-garland-top">
+                        <svg class="roses-svg" viewBox="0 0 700 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="roseWhitePetalPrev" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffffff"/>
+                                    <stop offset="45%" stop-color="#fdf2f8"/>
+                                    <stop offset="85%" stop-color="#e2e8f0"/>
+                                    <stop offset="100%" stop-color="#cbd5e1"/>
+                                </linearGradient>
+                                <linearGradient id="roseCorePetalPrev" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#fff5f5"/>
+                                    <stop offset="50%" stop-color="#fed7aa"/>
+                                    <stop offset="80%" stop-color="#e9d5ff"/>
+                                    <stop offset="100%" stop-color="#cbd5e1"/>
+                                </linearGradient>
+                                <linearGradient id="roseSilverVinePrev" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                                    <stop offset="25%" stop-color="#e2e8f0"/>
+                                    <stop offset="50%" stop-color="#f8fafc"/>
+                                    <stop offset="75%" stop-color="#cbd5e1"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.95"/>
+                                </linearGradient>
+                                <linearGradient id="roseSilverLeafPrev" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffffff"/>
+                                    <stop offset="50%" stop-color="#cbd5e1"/>
+                                    <stop offset="100%" stop-color="#94a3b8"/>
+                                </linearGradient>
+                                <filter id="roseGlowFilterPrev" x="-30%" y="-30%" width="160%" height="160%">
+                                    <feGaussianBlur stdDeviation="3.5" result="glow"/>
+                                    <feMerge>
+                                        <feMergeNode in="glow"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <!-- Garland Arches -->
+                            <path d="M 60 70 C 140 25, 230 18, 350 18 C 470 18, 560 25, 640 70" stroke="url(#roseSilverVinePrev)" stroke-width="3" stroke-linecap="round" filter="url(#roseGlowFilterPrev)"/>
+                            <path d="M 50 85 C 130 38, 220 28, 350 28 C 480 28, 570 38, 650 85" stroke="url(#roseSilverVinePrev)" stroke-width="1.8" stroke-dasharray="4 6" opacity="0.8"/>
+                            <path d="M 120 50 C 180 28, 260 22, 350 22 C 440 22, 520 28, 580 50" stroke="url(#roseSilverVinePrev)" stroke-width="2" opacity="0.85"/>
+
+                            <!-- Tendrils & Leaves -->
+                            <path d="M 85 55 C 65 35, 45 42, 35 25 C 28 12, 45 5, 58 12 C 72 20, 80 42, 90 52" stroke="url(#roseSilverVinePrev)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M 40 25 C 32 18, 25 22, 28 28 C 32 35, 42 32, 40 25 Z" fill="url(#roseSilverLeafPrev)"/>
+                            <path d="M 110 40 C 118 26, 132 28, 130 38 C 128 46, 115 48, 110 40 Z" fill="url(#roseSilverLeafPrev)"/>
+                            <path d="M 160 30 C 172 16, 188 20, 184 32 C 180 40, 166 38, 160 30 Z" fill="url(#roseSilverLeafPrev)"/>
+
+                            <path d="M 615 55 C 635 35, 655 42, 665 25 C 672 12, 655 5, 642 12 C 628 20, 620 42, 610 52" stroke="url(#roseSilverVinePrev)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M 660 25 C 668 18, 675 22, 672 28 C 668 35, 658 32, 660 25 Z" fill="url(#roseSilverLeafPrev)"/>
+                            <path d="M 590 40 C 582 26, 568 28, 570 38 C 572 46, 585 48, 590 40 Z" fill="url(#roseSilverLeafPrev)"/>
+
+                            <!-- Rose Buds -->
+                            <g transform="translate(275, 20) scale(0.65)">
+                                <circle cx="0" cy="0" r="14" fill="url(#roseWhitePetalPrev)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -8 -4 C -2 -14, 10 -12, 12 -4 C 14 6, 2 12, -4 10 Z" fill="url(#roseCorePetalPrev)"/>
+                            </g>
+                            <g transform="translate(425, 20) scale(0.65)">
+                                <circle cx="0" cy="0" r="14" fill="url(#roseWhitePetalPrev)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M 8 -4 C 2 -14, -10 -12, -12 -4 C -14 6, -2 12, 4 10 Z" fill="url(#roseCorePetalPrev)"/>
+                            </g>
+
+                            <!-- Top Left Rose -->
+                            <g transform="translate(75, 58)" filter="url(#roseGlowFilterPrev)">
+                                <path d="M -20 -28 C -35 -48, -10 -52, 2 -38 C 12 -26, 0 -16, -20 -28 Z" fill="url(#roseSilverLeafPrev)" stroke="#94a3b8" stroke-width="0.7"/>
+                                <path d="M -26 -16 C -34 -4, -30 20, -14 28 C 4 36, 28 30, 32 14 C 36 -4, 28 -24, 10 -30 C -8 -34, -20 -26, -26 -16 Z" fill="url(#roseWhitePetalPrev)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -22 -14 C -30 2, -16 22, 4 22 C 22 22, 26 2, 20 -14 C 14 -26, -14 -26, -22 -14 Z" fill="url(#roseWhitePetalPrev)" stroke="#e2e8f0" stroke-width="0.8"/>
+                                <path d="M -16 -6 C -22 6, -10 18, 4 18 C 18 18, 20 4, 14 -8 C 8 -18, -10 -16, -16 -6 Z" fill="url(#roseCorePetalPrev)" stroke="#e2e8f0" stroke-width="0.6"/>
+                                <path d="M -8 -8 C -12 0, -6 10, 2 10 C 10 10, 12 0, 8 -6 C 4 -12, -4 -12, -8 -8 Z" fill="#ffffff"/>
+                            </g>
+
+                            <!-- Top Center Rose -->
+                            <g transform="translate(350, 26) scale(0.85)" filter="url(#roseGlowFilterPrev)">
+                                <path d="M -26 -16 C -34 -4, -30 20, -14 28 C 4 36, 28 30, 32 14 C 36 -4, 28 -24, 10 -30 C -8 -34, -20 -26, -26 -16 Z" fill="url(#roseWhitePetalPrev)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -18 -8 C -24 4, -12 18, 2 18 C 16 18, 18 4, 12 -10 C 6 -20, -12 -18, -18 -8 Z" fill="url(#roseCorePetalPrev)" stroke="#cbd5e1" stroke-width="0.8"/>
+                                <path d="M -6 -4 C -8 2, -2 6, 2 6 C 6 6, 6 1, 4 -3 Z" fill="#ffffff"/>
+                            </g>
+
+                            <!-- Top Right Rose -->
+                            <g transform="translate(625, 58)" filter="url(#roseGlowFilterPrev)">
+                                <path d="M 20 -28 C 35 -48, 10 -52, -2 -38 C -12 -26, 0 -16, 20 -28 Z" fill="url(#roseSilverLeafPrev)" stroke="#94a3b8" stroke-width="0.7"/>
+                                <path d="M 26 -16 C 34 -4, 30 20, 14 28 C -4 36, -28 30, -32 14 C -36 -4, -28 -24, -10 -30 C 8 -34, 20 -26, 26 -16 Z" fill="url(#roseWhitePetalPrev)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M 22 -14 C 30 2, 16 22, -4 22 C -22 22, -26 2, -20 -14 C -14 -26, 14 -26, 22 -14 Z" fill="url(#roseWhitePetalPrev)" stroke="#e2e8f0" stroke-width="0.8"/>
+                                <path d="M 16 -6 C 22 6, 10 18, -4 18 C -18 18, -20 4, -14 -8 C -8 -18, 10 -16, 16 -6 Z" fill="url(#roseCorePetalPrev)" stroke="#e2e8f0" stroke-width="0.6"/>
+                                <path d="M 8 -8 C 12 0, 6 10, -2 10 C -10 10, -12 0, -8 -6 C -4 -12, 4 -12, 8 -8 Z" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Bottom Floral Garland -->
+                    <div class="roses-garland-bottom">
+                        <svg class="roses-svg" viewBox="0 0 700 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 60 25 C 150 65, 240 72, 350 72 C 460 72, 550 65, 640 25" stroke="url(#roseSilverVinePrev)" stroke-width="2.5" stroke-linecap="round" filter="url(#roseGlowFilterPrev)"/>
+                            <!-- Bottom Rose -->
+                            <g transform="translate(350, 68) scale(0.9)" filter="url(#roseGlowFilterPrev)">
+                                <path d="M -22 -14 C -30 2, -16 22, 4 22 C 22 22, 26 2, 20 -14 C 14 -26, -14 -26, -22 -14 Z" fill="url(#roseWhitePetalPrev)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -16 -6 C -22 6, -10 18, 4 18 C 18 18, 20 4, 14 -8 C 8 -18, -10 -16, -16 -6 Z" fill="url(#roseCorePetalPrev)"/>
+                                <path d="M -6 -4 C -8 2, -2 6, 2 6 C 6 6, 6 1, 4 -3 Z" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Sparkles -->
+                    <div class="roses-sparkles">
+                        <span class="rose-sparkle sp-1">✦</span>
+                        <span class="rose-sparkle sp-3">✦</span>
+                        <span class="rose-sparkle sp-5">✦</span>
+                        <span class="rose-sparkle sp-7">✦</span>
+                    </div>
+                </div>
+
+                <!-- Preview Bio Card -->
+                <div class="bio-card" style="margin-top:0;">
+                    <div class="card-header">
+                        <div class="avatar-wrapper">
+                            <img class="main-avatar" id="prevAvatar" src="./assets/media/shahon_avatar.png" alt="Profile Avatar">
+                            <img class="avatar-decoration" id="prevAvatarDeco" src="./assets/media/avatar_decoration.png" alt="Avatar Decoration">
+                            <div class="main-avatar-status dnd" id="prevAvatarStatus" title="Presence Status"></div>
+                        </div>
+
+                        <div class="header-text-column">
+                            <div class="username-row">
+                                <h1 class="username" id="prevDisplayName">DANGER SHAWON</h1>
+                                <span class="custom-moon-badge">🌙</span>
+                                <svg class="verified-badge" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45l-3.4 1.45Zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12l3.55 3.55Z" />
+                                </svg>
+                            </div>
+
+                            <div class="user-handle-row">
+                                <span class="user-handle" id="prevUsername">mjshahon</span>
+                                <span class="handle-dot">•</span>
+                                <span class="status-pronoun" id="prevPronoun">dnd</span>
+                            </div>
+
+                            <div class="custom-status-quote-box">
+                                <p class="status-quote" id="prevQuote">"Legends don't announce themselves. They"</p>
+                                <div class="status-emojis" id="prevEmojis">🎮 🖥️ ⚔️ ⚙️</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mini Widget Preview -->
+                    <div style="margin-top:16px; padding:12px 14px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.06); border-radius:10px; display:flex; align-items:center; gap:10px;">
+                        <div class="status-dot dnd" id="prevStatusDot"></div>
+                        <div style="font-size:12px; color:#cbd5e1;">Live Presence Active</div>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Admin Floating Toast Notification -->
+    <div class="admin-toast" id="adminToast">
+        <span class="toast-icon">✨</span>
+        <span class="toast-msg">Settings updated!</span>
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="./config.js"></script>
+    <script src="./admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mjshahon | Aesthetic Bio Hub</title>
+    <link rel="icon" type="image/png" href="./assets/media/shahon_avatar.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sleek Custom Micro Star Cursor -->
+    <div class="custom-cursor-dot" id="cursorDot"></div>
+
+    <!-- Security Toast -->
+    <div class="security-toast" id="securityToast">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Protected: Developer tools & source inspection are restricted.</span>
+    </div>
+
+    <!-- Ambient Floating Snowflakes & Stars FX -->
+    <div class="snowflakes-container" id="snowflakes-container"></div>
+    <div class="star-dust-container" id="star-dust-container"></div>
+
+    <!-- Ambient Particles Canvas (GPU Accelerated Star Sparkles) -->
+    <canvas id="ambient-particles-canvas"></canvas>
+
+    <!-- Entry Screen Overlay (Cyber Luxury Screen) -->
+    <div id="entry-overlay" class="entry-overlay" title="Click anywhere to enter">
+        <div class="entry-container">
+            <div class="entry-crown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="loading-crown-svg">
+                    <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/>
+                    <path d="M5 20h14"/>
+                </svg>
+            </div>
+            <div class="entry-title-glimmer" id="entryTitleGlimmer">DANGER SHAWON</div>
+            <div class="entry-btn-wrapper show" id="entry-btn-wrapper">
+                <button class="premium-enter-btn" id="entry-btn" type="button">
+                    <span class="enter-btn-content">
+                        [ CLICK ANYWHERE TO ENTER ]
+                        <svg class="loading-sparkle-svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Video & Overlay -->
+    <video id="bg-video" autoplay muted playsinline loop>
+        <source src="./assets/media/track_yad.mp4" type="video/mp4">
+    </video>
+    <div id="yt-bg-container" class="yt-bg-container" style="display:none;"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Hidden Audio Player for sync -->
+    <audio id="main-audio" preload="auto"></audio>
+
+    <!-- Volume Controller -->
+    <div class="volume-controller" id="volumeController">
+        <div class="volume-btn" id="volumeToggle" title="Toggle Mute">
+            <svg class="volume-icon" id="volumeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+        </div>
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.75" title="Volume Slider">
+    </div>
+
+    <!-- Main Full-Screen Snap Slides Container -->
+    <main class="main-wrapper" id="mainWrapper">
+
+        <!-- Slide 0: 3D Tilt Bio Profile Card Section -->
+        <section class="portfolio-section active-slide" id="section-profile">
+            <div class="card-wrapper reveal-bio-card active" id="profile-card-wrapper">
+                <!-- Discord Shop Profile Effect: Luminous White Roses Floral Frame -->
+                <div class="discord-profile-effect roses-frame" id="discordProfileEffect">
+                    <!-- Top Floral Garland -->
+                    <div class="roses-garland-top">
+                        <svg class="roses-svg" viewBox="0 0 700 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="roseWhitePetal" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffffff"/>
+                                    <stop offset="45%" stop-color="#fdf2f8"/>
+                                    <stop offset="85%" stop-color="#e2e8f0"/>
+                                    <stop offset="100%" stop-color="#cbd5e1"/>
+                                </linearGradient>
+                                <linearGradient id="roseCorePetal" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#fff5f5"/>
+                                    <stop offset="50%" stop-color="#fed7aa"/>
+                                    <stop offset="80%" stop-color="#e9d5ff"/>
+                                    <stop offset="100%" stop-color="#cbd5e1"/>
+                                </linearGradient>
+                                <linearGradient id="roseSilverVine" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                                    <stop offset="25%" stop-color="#e2e8f0"/>
+                                    <stop offset="50%" stop-color="#f8fafc"/>
+                                    <stop offset="75%" stop-color="#cbd5e1"/>
+                                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.95"/>
+                                </linearGradient>
+                                <linearGradient id="roseSilverLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffffff"/>
+                                    <stop offset="50%" stop-color="#cbd5e1"/>
+                                    <stop offset="100%" stop-color="#94a3b8"/>
+                                </linearGradient>
+                                <filter id="roseGlowFilter" x="-30%" y="-30%" width="160%" height="160%">
+                                    <feGaussianBlur stdDeviation="3.5" result="glow"/>
+                                    <feMerge>
+                                        <feMergeNode in="glow"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <!-- Arched silver garland ribbons -->
+                            <path d="M 60 70 C 140 25, 230 18, 350 18 C 470 18, 560 25, 640 70" stroke="url(#roseSilverVine)" stroke-width="3" stroke-linecap="round" filter="url(#roseGlowFilter)"/>
+                            <path d="M 50 85 C 130 38, 220 28, 350 28 C 480 28, 570 38, 650 85" stroke="url(#roseSilverVine)" stroke-width="1.8" stroke-dasharray="4 6" opacity="0.8"/>
+                            <path d="M 120 50 C 180 28, 260 22, 350 22 C 440 22, 520 28, 580 50" stroke="url(#roseSilverVine)" stroke-width="2" opacity="0.85"/>
+
+                            <!-- Top Vines Tendrils & Leaves -->
+                            <path d="M 85 55 C 65 35, 45 42, 35 25 C 28 12, 45 5, 58 12 C 72 20, 80 42, 90 52" stroke="url(#roseSilverVine)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M 40 25 C 32 18, 25 22, 28 28 C 32 35, 42 32, 40 25 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 110 40 C 118 26, 132 28, 130 38 C 128 46, 115 48, 110 40 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 160 30 C 172 16, 188 20, 184 32 C 180 40, 166 38, 160 30 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 220 22 C 235 10, 248 15, 244 26 C 240 33, 226 31, 220 22 Z" fill="url(#roseSilverLeaf)"/>
+
+                            <path d="M 615 55 C 635 35, 655 42, 665 25 C 672 12, 655 5, 642 12 C 628 20, 620 42, 610 52" stroke="url(#roseSilverVine)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M 660 25 C 668 18, 675 22, 672 28 C 668 35, 658 32, 660 25 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 590 40 C 582 26, 568 28, 570 38 C 572 46, 585 48, 590 40 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 540 30 C 528 16, 512 20, 516 32 C 520 40, 534 38, 540 30 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 480 22 C 465 10, 452 15, 456 26 C 460 33, 474 31, 480 22 Z" fill="url(#roseSilverLeaf)"/>
+
+                            <!-- Small rosebuds along the arch -->
+                            <g transform="translate(275, 20) scale(0.65)">
+                                <circle cx="0" cy="0" r="14" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -8 -4 C -2 -14, 10 -12, 12 -4 C 14 6, 2 12, -4 10 Z" fill="url(#roseCorePetal)"/>
+                            </g>
+                            <g transform="translate(425, 20) scale(0.65)">
+                                <circle cx="0" cy="0" r="14" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M 8 -4 C 2 -14, -10 -12, -12 -4 C -14 6, -2 12, 4 10 Z" fill="url(#roseCorePetal)"/>
+                            </g>
+
+                            <!-- TOP-LEFT LUSH BLOOMING ROSE CLUSTER -->
+                            <g transform="translate(75, 58)" filter="url(#roseGlowFilter)">
+                                <path d="M -20 -28 C -35 -48, -10 -52, 2 -38 C 12 -26, 0 -16, -20 -28 Z" fill="url(#roseSilverLeaf)" stroke="#94a3b8" stroke-width="0.7"/>
+                                <path d="M -38 -8 C -58 -18, -58 10, -40 18 C -26 22, -22 6, -38 -8 Z" fill="url(#roseSilverLeaf)" stroke="#94a3b8" stroke-width="0.7"/>
+                                <path d="M -25 25 C -40 42, -16 52, -4 38 C 6 28, -6 18, -25 25 Z" fill="url(#roseSilverLeaf)" stroke="#94a3b8" stroke-width="0.7"/>
+                                <path d="M -26 -16 C -34 -4, -30 20, -14 28 C 4 36, 28 30, 32 14 C 36 -4, 28 -24, 10 -30 C -8 -34, -20 -26, -26 -16 Z" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -30 -4 C -36 12, -20 26, -4 30 C 14 34, 30 22, 30 6 C 30 -12, 16 -24, -2 -24 C -18 -24, -26 -16, -30 -4 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+                                <path d="M -22 -14 C -30 2, -16 22, 4 22 C 22 22, 26 2, 20 -14 C 14 -26, -14 -26, -22 -14 Z" fill="url(#roseWhitePetal)" stroke="#e2e8f0" stroke-width="0.8"/>
+                                <path d="M -16 -6 C -22 6, -10 18, 4 18 C 18 18, 20 4, 14 -8 C 8 -18, -10 -16, -16 -6 Z" fill="url(#roseCorePetal)" stroke="#e2e8f0" stroke-width="0.6"/>
+                                <path d="M -8 -8 C -12 0, -6 10, 2 10 C 10 10, 12 0, 8 -6 C 4 -12, -4 -12, -8 -8 Z" fill="#ffffff"/>
+                                <path d="M -4 -4 C -6 2, -2 6, 2 6 C 6 6, 6 1, 4 -3 C 2 -6, -2 -6, -4 -4 Z" fill="#fda4af" opacity="0.6"/>
+                            </g>
+
+                            <!-- TOP-LEFT COMPANION BLOSSOM -->
+                            <g transform="translate(125, 42) scale(0.72)" filter="url(#roseGlowFilter)">
+                                <path d="M -22 -14 C -30 2, -16 22, 4 22 C 22 22, 26 2, 20 -14 C 14 -26, -14 -26, -22 -14 Z" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -16 -6 C -22 6, -10 18, 4 18 C 18 18, 20 4, 14 -8 C 8 -18, -10 -16, -16 -6 Z" fill="url(#roseCorePetal)"/>
+                                <path d="M -6 -4 C -8 2, -2 6, 2 6 C 6 6, 6 1, 4 -3 Z" fill="#ffffff"/>
+                            </g>
+
+                            <!-- TOP-CENTER BLOSSOM -->
+                            <g transform="translate(350, 26) scale(0.85)" filter="url(#roseGlowFilter)">
+                                <path d="M -15 -25 C -28 -38, 28 -38, 15 -25 Z" fill="url(#roseSilverLeaf)"/>
+                                <path d="M -26 -16 C -34 -4, -30 20, -14 28 C 4 36, 28 30, 32 14 C 36 -4, 28 -24, 10 -30 C -8 -34, -20 -26, -26 -16 Z" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -18 -8 C -24 4, -12 18, 2 18 C 16 18, 18 4, 12 -10 C 6 -20, -12 -18, -18 -8 Z" fill="url(#roseCorePetal)" stroke="#cbd5e1" stroke-width="0.8"/>
+                                <path d="M -6 -4 C -8 2, -2 6, 2 6 C 6 6, 6 1, 4 -3 Z" fill="#ffffff"/>
+                            </g>
+
+                            <!-- TOP-RIGHT LUSH BLOOMING ROSE CLUSTER -->
+                            <g transform="translate(625, 58)" filter="url(#roseGlowFilter)">
+                                <path d="M 20 -28 C 35 -48, 10 -52, -2 -38 C -12 -26, 0 -16, 20 -28 Z" fill="url(#roseSilverLeaf)" stroke="#94a3b8" stroke-width="0.7"/>
+                                <path d="M 38 -8 C 58 -18, 58 10, 40 18 C 26 22, 22 6, 38 -8 Z" fill="url(#roseSilverLeaf)" stroke="#94a3b8" stroke-width="0.7"/>
+                                <path d="M 25 25 C 40 42, 16 52, 4 38 C -6 28, 6 18, 25 25 Z" fill="url(#roseSilverLeaf)" stroke="#94a3b8" stroke-width="0.7"/>
+                                <path d="M 26 -16 C 34 -4, 30 20, 14 28 C -4 36, -28 30, -32 14 C -36 -4, -28 -24, -10 -30 C 8 -34, 20 -26, 26 -16 Z" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M 30 -4 C 36 12, 20 26, 4 30 C -14 34, -30 22, -30 6 C -30 -12, -16 -24, 2 -24 C 18 -24, 26 -16, 30 -4 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.8"/>
+                                <path d="M 22 -14 C 30 2, 16 22, -4 22 C -22 22, -26 2, -20 -14 C -14 -26, 14 -26, 22 -14 Z" fill="url(#roseWhitePetal)" stroke="#e2e8f0" stroke-width="0.8"/>
+                                <path d="M 16 -6 C 22 6, 10 18, -4 18 C -18 18, -20 4, -14 -8 C -8 -18, 10 -16, 16 -6 Z" fill="url(#roseCorePetal)" stroke="#e2e8f0" stroke-width="0.6"/>
+                                <path d="M 8 -8 C 12 0, 6 10, -2 10 C -10 10, -12 0, -8 -6 C -4 -12, 4 -12, 8 -8 Z" fill="#ffffff"/>
+                                <path d="M 4 -4 C 6 2, 2 6, -2 6 C -6 6, -6 1, -4 -3 C -2 -6, 2 -6, 4 -4 Z" fill="#fda4af" opacity="0.6"/>
+                            </g>
+
+                            <!-- TOP-RIGHT COMPANION BLOSSOM -->
+                            <g transform="translate(575, 42) scale(0.72)" filter="url(#roseGlowFilter)">
+                                <path d="M 22 -14 C 30 2, 16 22, -4 22 C -22 22, -26 2, -20 -14 C -14 -26, 14 -26, 22 -14 Z" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M 16 -6 C 22 6, 10 18, -4 18 C -18 18, -20 4, -14 -8 C -8 -18, 10 -16, 16 -6 Z" fill="url(#roseCorePetal)"/>
+                                <path d="M 6 -4 C 8 2, 2 6, -2 6 C -6 6, -6 1, -4 -3 Z" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Bottom Floral Garland -->
+                    <div class="roses-garland-bottom">
+                        <svg class="roses-svg" viewBox="0 0 700 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 60 25 C 150 65, 240 72, 350 72 C 460 72, 550 65, 640 25" stroke="url(#roseSilverVine)" stroke-width="2.5" stroke-linecap="round" filter="url(#roseGlowFilter)"/>
+                            <path d="M 90 35 C 170 68, 250 78, 350 78 C 450 78, 530 68, 610 35" stroke="url(#roseSilverVine)" stroke-width="1.6" stroke-dasharray="3 5" opacity="0.75"/>
+                            <path d="M 230 65 C 242 78, 258 74, 254 62 C 250 54, 236 56, 230 65 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 470 65 C 458 78, 442 74, 446 62 C 450 54, 464 56, 470 65 Z" fill="url(#roseSilverLeaf)"/>
+
+                            <!-- Bottom-Left Rose -->
+                            <g transform="translate(68, 40) scale(0.85)" filter="url(#roseGlowFilter)">
+                                <path d="M -22 -14 C -30 2, -16 22, 4 22 C 22 22, 26 2, 20 -14 C 14 -26, -14 -26, -22 -14 Z" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -16 -6 C -22 6, -10 18, 4 18 C 18 18, 20 4, 14 -8 C 8 -18, -10 -16, -16 -6 Z" fill="url(#roseCorePetal)"/>
+                                <path d="M -6 -4 C -8 2, -2 6, 2 6 C 6 6, 6 1, 4 -3 Z" fill="#ffffff"/>
+                            </g>
+
+                            <!-- Bottom-Center Rose Bloom -->
+                            <g transform="translate(350, 68) scale(0.9)" filter="url(#roseGlowFilter)">
+                                <path d="M -22 -14 C -30 2, -16 22, 4 22 C 22 22, 26 2, 20 -14 C 14 -26, -14 -26, -22 -14 Z" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -16 -6 C -22 6, -10 18, 4 18 C 18 18, 20 4, 14 -8 C 8 -18, -10 -16, -16 -6 Z" fill="url(#roseCorePetal)"/>
+                                <path d="M -6 -4 C -8 2, -2 6, 2 6 C 6 6, 6 1, 4 -3 Z" fill="#ffffff"/>
+                            </g>
+
+                            <!-- Bottom-Right Rose -->
+                            <g transform="translate(632, 40) scale(0.85)" filter="url(#roseGlowFilter)">
+                                <path d="M 22 -14 C 30 2, 16 22, -4 22 C -22 22, -26 2, -20 -14 C -14 -26, 14 -26, 22 -14 Z" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M 16 -6 C 22 6, 10 18, -4 18 C -18 18, -20 4, -14 -8 C -8 -18, 10 -16, 16 -6 Z" fill="url(#roseCorePetal)"/>
+                                <path d="M 6 -4 C 8 2, 2 6, -2 6 C -6 6, -6 1, -4 -3 Z" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Left Border Climbing Vine -->
+                    <div class="roses-vine-left">
+                        <svg class="roses-vine-svg" viewBox="0 0 36 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 28 0 C 12 60, 30 140, 16 220 C 6 280, 26 310, 22 340" stroke="url(#roseSilverVine)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M 20 70 C 8 75, 4 65, 12 58 C 20 52, 24 64, 20 70 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 18 160 C 6 166, 2 154, 10 146 C 18 140, 22 152, 18 160 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 20 250 C 8 256, 4 244, 12 238 C 20 230, 24 242, 20 250 Z" fill="url(#roseSilverLeaf)"/>
+                            <g transform="translate(18, 180) scale(0.45)">
+                                <circle cx="0" cy="0" r="14" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M -6 -4 C -2 -10, 8 -8, 8 -2 C 8 6, 0 8, -4 6 Z" fill="url(#roseCorePetal)"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Right Border Climbing Vine -->
+                    <div class="roses-vine-right">
+                        <svg class="roses-vine-svg" viewBox="0 0 36 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 8 0 C 24 60, 6 140, 20 220 C 30 280, 10 310, 14 340" stroke="url(#roseSilverVine)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M 16 70 C 28 75, 32 65, 24 58 C 16 52, 12 64, 16 70 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 18 160 C 30 166, 34 154, 26 146 C 18 140, 14 152, 18 160 Z" fill="url(#roseSilverLeaf)"/>
+                            <path d="M 16 250 C 28 256, 32 244, 24 238 C 16 230, 12 242, 16 250 Z" fill="url(#roseSilverLeaf)"/>
+                            <g transform="translate(18, 180) scale(0.45)">
+                                <circle cx="0" cy="0" r="14" fill="url(#roseWhitePetal)" stroke="#cbd5e1" stroke-width="1"/>
+                                <path d="M 6 -4 C 2 -10, -8 -8, -8 -2 C -8 6, 0 8, 4 6 Z" fill="url(#roseCorePetal)"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Sparkling Diamond Stars Overlay -->
+                    <div class="roses-sparkles">
+                        <span class="rose-sparkle sp-1">✦</span>
+                        <span class="rose-sparkle sp-2">✧</span>
+                        <span class="rose-sparkle sp-3">✦</span>
+                        <span class="rose-sparkle sp-4">✧</span>
+                        <span class="rose-sparkle sp-5">✦</span>
+                        <span class="rose-sparkle sp-6">✧</span>
+                        <span class="rose-sparkle sp-7">✦</span>
+                        <span class="rose-sparkle sp-8">✧</span>
+                    </div>
+                </div>
+
+                <div class="bio-card" id="bioCard">
+                    <!-- Header: Avatar, Name, Badges -->
+                    <div class="card-header">
+                        <div class="avatar-wrapper">
+                            <img class="main-avatar" id="mainAvatar" src="./assets/media/shahon_avatar.png" alt="Profile Avatar">
+                            <img class="avatar-decoration" id="avatarDecoration" src="./assets/media/avatar_decoration.png" alt="Avatar Decoration">
+                            <div class="main-avatar-status dnd" id="mainAvatarStatus" title="Do Not Disturb"></div>
+                        </div>
+                        <div class="header-text-column">
+                            <div class="username-row">
+                                <h1 class="username" id="profileDisplayName">DANGER SHAWON</h1>
+                                <span class="custom-moon-badge" id="moonBadge" title="Moon of the Night">🌙</span>
+                                <svg class="verified-badge" id="verifiedBadge" data-tooltip="Verified Profile" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45l-3.4 1.45Zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12l3.55 3.55Z" />
+                                </svg>
+                            </div>
+                            <div class="user-handle-row">
+                                <span class="user-handle" id="profileUsername">mjshahon</span>
+                                <span class="handle-dot">•</span>
+                                <span class="status-pronoun" id="profileStatusPronoun">dnd</span>
+                            </div>
+                            <div class="custom-status-quote-box" id="profileStatusBox">
+                                <p class="status-quote" id="profileStatusQuote">"Legends don't announce themselves. They"</p>
+                                <div class="status-emojis" id="profileStatusEmojis">🎮 🖥️ ⚔️ ⚙️</div>
+                            </div>
+                            <div class="badges-wrapper">
+                                <!-- Real Discord Nitro & Custom Badges injected dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Widgets Grid: Discord Status & Discord Server -->
+                    <div class="widgets-grid">
+                        <!-- Left: Discord Presence Widget -->
+                        <div class="widget-card user-status-widget" id="userStatusWidget">
+                            <div class="status-avatar-wrap">
+                                <img class="status-avatar-img" id="discordAvatar" src="./assets/media/shahon_avatar.png" alt="Discord Avatar">
+                                <div class="status-dot online" id="discordStatusDot"></div>
+                            </div>
+                            <div class="status-details">
+                                <div class="status-name-row">
+                                    <span id="discordUsername">mjshahon</span>
+                                </div>
+                                <div class="status-custom-text" id="discordCustomStatus">
+                                    <span>⚡ Active on Discord</span>
+                                </div>
+                                <div class="status-activity" id="discordActivity">
+                                    <span>ONLINE</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Discord Server Widget -->
+                        <div class="widget-card discord-server-widget" id="discordServerWidgetCard">
+                            <div class="server-avatar-wrap">
+                                <img class="server-avatar-img" id="discordServerIcon" src="./assets/media/shahon_avatar.png" alt="Server Icon">
+                            </div>
+                            <div class="server-details">
+                                <div class="server-name" id="discordServerName">Shahon's Server</div>
+                                <div class="server-stats">
+                                    <span><span class="online-dot"></span> <span id="discordServerOnline">Live</span></span>
+                                    <span>• <span id="discordServerMembers">Community</span></span>
+                                </div>
+                            </div>
+                            <a class="join-btn" id="discordJoinBtn" href="#" target="_blank">Join</a>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Links Row -->
+                    <div class="social-icons-row" id="socialIconsRow">
+                        <!-- Dynamically injected from config.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 1: Music Player & Synced Background Section -->
+        <section class="portfolio-section" id="section-music">
+            <div class="portfolio-module reveal-now-playing" id="music-player">
+                <div class="module-header-row">
+                    <h2 class="module-title">Now Playing</h2>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <button class="focus-mode-btn" id="focusModeToggle" title="Toggle Fullscreen Focus">
+                            <svg class="focus-icon-expand" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <polyline points="9 21 3 21 3 15"></polyline>
+                                <line x1="21" y1="3" x2="14" y2="10"></line>
+                                <line x1="3" y1="21" x2="10" y2="14"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Music Track Info & Visualizer -->
+                <div class="music-track-info">
+                    <div class="music-cover-wrapper">
+                        <img src="./assets/media/cover_yad.jpg" alt="Track Cover" class="music-cover-img" id="currentTrackCover">
+                    </div>
+                    <div class="music-meta">
+                        <div class="music-title" id="currentTrackTitle">YAD (Яд) English Version</div>
+                        <div class="music-artist" id="currentTrackArtist">Vanna Rainelle</div>
+                    </div>
+                    <!-- Dancing Audio Visualizer -->
+                    <div class="music-visualizer playing" id="audioVisualizer">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar & Duration -->
+                <div class="music-progress-wrapper">
+                    <span id="currentTime">0:00</span>
+                    <div class="music-progress-bar-container" id="progressBarContainer">
+                        <div class="music-progress-bar-fill" id="progressBarFill"></div>
+                    </div>
+                    <span id="totalDuration">0:00</span>
+                </div>
+
+                <!-- Controls: Speed, Prev, Play/Pause, Next, Queue -->
+                <div class="music-controls-container">
+                    <div class="music-controls">
+                        <button class="music-btn music-speed-btn" id="speedBtn" title="Playback Speed">1.0x</button>
+                        <button class="music-btn" id="prevBtn" title="Previous Track">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="19 20 9 12 19 4 19 20"/>
+                                <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"/>
+                            </svg>
+                        </button>
+                        <button class="music-btn play-btn" id="playBtn" title="Play / Pause">
+                            <svg id="playIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                            <svg id="pauseIcon" style="display:none;" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="6" y="4" width="4" height="16"/>
+                                <rect x="14" y="4" width="4" height="16"/>
+                            </svg>
+                        </button>
+                        <button class="music-btn" id="nextBtn" title="Next Track">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="5 4 15 12 5 20 5 4"/>
+                                <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"/>
+                            </svg>
+                        </button>
+                        <button class="music-btn queue-btn" id="queueToggleBtn" title="View Playlist Queue">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Synced Lyrics Display -->
+                <div class="lyrics-container">
+                    <div class="lyrics-sync-controls">
+                        <button class="lyric-sync-btn" id="syncMinusBtn" title="Speed up lyrics by 0.5s">-0.5s</button>
+                        <span class="lyric-sync-title">SYNC ADJUST</span>
+                        <button class="lyric-sync-btn" id="syncPlusBtn" title="Delay lyrics by 0.5s">+0.5s</button>
+                    </div>
+                    <div class="lyrics-scroll" id="lyricsScrollContainer">
+                        <!-- Dynamic lyrics rows -->
+                    </div>
+                </div>
+
+                <!-- Music Search Container -->
+                <div class="music-search-container">
+                    <input type="text" class="music-search-input" id="musicSearchInput" placeholder="Search any Music...">
+                    <button class="music-search-btn" id="musicSearchBtn" title="Search Music">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Queue Drawer Panel -->
+                <div class="music-queue-panel" id="queuePanel" style="display: none;">
+                    <div class="queue-panel-header">
+                        <span>SELECT SONG TO PLAY</span>
+                        <span id="queueTotalCount">6 Songs</span>
+                    </div>
+                    <div class="queue-list" id="queueList">
+                        <!-- Injected dynamically from CONFIG.playlist -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: About Me & Aesthetic Live Clock Section -->
+        <section class="portfolio-section" id="section-about">
+            <div class="portfolio-module reveal-about-me" id="about-me">
+                <h2 class="module-title">About Me</h2>
+                <div class="about-module-content">
+                    <div class="about-text-content">
+                        <div class="about-desc" id="aboutBioText">
+                            <!-- Injected dynamically with typewriter effect -->
+                        </div>
+                    </div>
+
+                    <!-- Widgets: Second Server & Live Analog/Digital Clock -->
+                    <div class="about-subcards-row">
+                        <!-- Second Server Widget -->
+                        <div class="about-subcard discord-subcard">
+                            <div class="widget-left">
+                                <div class="server-avatar-container" id="secondServerIconContainer">
+                                    <img class="server-avatar-img" id="secondServerIcon" src="./assets/media/shahon_avatar.png" alt="Server Icon">
+                                </div>
+                                <div class="widget-details">
+                                    <span class="widget-title" id="secondServerName">Community Hub</span>
+                                    <span class="widget-subtitle">
+                                        <span class="widget-badge">owner</span>
+                                        <span id="secondServerOnline">Discord Community</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <a class="widget-join-btn" id="secondServerJoinBtn" href="#" target="_blank">Join</a>
+                        </div>
+
+                        <!-- Live Analog + Digital Clock Widget -->
+                        <div class="about-subcard clock-subcard">
+                            <div class="widget-left">
+                                <div class="analog-clock">
+                                    <div class="clock-dot dot-12"></div>
+                                    <div class="clock-dot dot-3"></div>
+                                    <div class="clock-dot dot-6"></div>
+                                    <div class="clock-dot dot-9"></div>
+                                    <div class="hand hour-hand" id="hourHand"></div>
+                                    <div class="hand minute-hand" id="minuteHand"></div>
+                                    <div class="hand second-hand" id="secondHand"></div>
+                                    <div class="center-dot"></div>
+                                </div>
+                                <div class="widget-details">
+                                    <span class="widget-time-digital" id="digitalClock">00:00:00 PM</span>
+                                    <span class="widget-timezone-info" id="timezoneDate">Sun, Sep 27 - GMT+6</span>
+                                    <span class="widget-user-time" id="userLocalClock">shahon's time: 15:20 (BST)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills & Badges Grid -->
+                    <div class="skills-container" id="skillsContainer">
+                        <!-- Dynamically injected from config.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Featured Projects Showcase Section -->
+        <section class="portfolio-section" id="section-projects">
+            <div class="portfolio-module reveal-projects" id="projects">
+                <h2 class="module-title">Projects I Work On</h2>
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Project 1 & 2 dynamically injected with projectCardReveal -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Other Bios & Action Buttons Section -->
+        <section class="portfolio-section" id="section-links">
+            <div class="portfolio-module reveal-other-bios" id="other-bios">
+                <h2 class="module-title">Other Bios</h2>
+                <div class="other-bios-flex">
+                    <!-- Left: Handles / Aliases List -->
+                    <div class="bio-list" id="bioHandlesList">
+                        <div class="bio-list-item">
+                            <span class="bio-tag">[ &lt;/dev&gt; ]</span>
+                            <span class="bio-arrow">&rarr;</span>
+                            <span class="bio-val">mjshahon</span>
+                        </div>
+                        <div class="bio-list-item">
+                            <span class="bio-tag">[ another profile ]</span>
+                            <span class="bio-arrow">&rarr;</span>
+                            <span class="bio-val">mjshahon.dev</span>
+                        </div>
+                        <div class="bio-list-item">
+                            <span class="bio-tag">[ alias ]</span>
+                            <span class="bio-arrow">&rarr;</span>
+                            <span class="bio-val">mjshahon <em style="font-size:12px; color:var(--text-sub);">(you are here)</em></span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Custom Action Buttons -->
+                    <div class="custom-buttons-grid" id="customButtonsGrid">
+                        <!-- Dynamically injected from config.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Thanks Module Section -->
+        <section class="portfolio-section" id="section-thanks">
+            <div class="portfolio-module reveal-thanks" id="thanks-module">
+                <div class="thanks-card">
+                    <div class="thanks-crown-container">
+                        <svg class="thanks-crown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/>
+                            <path d="M5 20h14"/>
+                        </svg>
+                    </div>
+                    <h2 class="thanks-title">THANKS FOR VISITING</h2>
+                    <p class="thanks-sub">Let's build something extraordinary together.</p>
+                    <div class="thanks-sparkles">
+                        <span>✦</span>
+                        <span>✧</span>
+                        <span>✦</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Vertical Scroll Pagination Track (Guns.lol Style) -->
+    <nav class="scroll-pagination" id="scrollPagination">
+        <div class="pagination-line">
+            <div class="pagination-line-fill" id="paginationLineFill"></div>
+        </div>
+        <div class="pagination-dot active" data-target="0" data-tooltip="Profile"></div>
+        <div class="pagination-dot" data-target="1" data-tooltip="Now Playing"></div>
+        <div class="pagination-dot" data-target="2" data-tooltip="About Me"></div>
+        <div class="pagination-dot" data-target="3" data-tooltip="Projects"></div>
+        <div class="pagination-dot" data-target="4" data-tooltip="Other Bios"></div>
+        <div class="pagination-dot" data-target="5" data-tooltip="Thanks"></div>
+    </nav>
+
+    <!-- Viewport Footer (Left Side) -->
+    <footer class="viewport-footer-left">
+        <span>
+            <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <span id="visitorCount">14,280</span> views
+        </span>
+        <span>|</span>
+        <span>
+            <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span id="footerLocation">Bangladesh</span>
+        </span>
+    </footer>
+
+    <!-- Floating Contact Button & Modal -->
+    <div class="floating-contact-btn" id="contactBtn" title="Send a Message">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+    </div>
+
+    <!-- Contact Modal Overlay -->
+    <div class="contact-modal-overlay" id="contactOverlay">
+        <div class="contact-modal-card">
+            <div class="contact-modal-header">
+                <h3>Send a Message</h3>
+                <button class="contact-modal-close" id="contactCloseBtn">&times;</button>
+            </div>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="contactName">Your Name</label>
+                    <input type="text" id="contactName" placeholder="What should I call you?" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactInfo">Your Discord or Email</label>
+                    <input type="text" id="contactInfo" placeholder="How can I reply to you?" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactMsg">Message</label>
+                    <textarea id="contactMsg" rows="4" placeholder="Write your message here..." required></textarea>
+                </div>
+                <button type="submit" class="contact-submit-btn" id="contactSubmitBtn">Send to Discord</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Quick Discord Connect Modal -->
+    <div class="discord-modal-overlay" id="discordModalOverlay">
+        <div class="discord-modal-card">
+            <div class="discord-modal-header">
+                <h3>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#5865F2"><path d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1a14.66 14.66 0 0 0-4.58 0a10.14 10.14 0 0 0-.53-1.1a16 16 0 0 0-4.13 1.3a17.33 17.33 0 0 0-3 11.59a16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83a3.39 3.39 0 0 0 .42-.33a11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84a12.41 12.41 0 0 0 1.08 1.78a16.44 16.44 0 0 0 5.06-2.59a17.22 17.22 0 0 0-3-11.59a16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.93 1.93 0 0 1 1.8 2a1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.92 1.92 0 0 1 1.8 2a1.92 1.92 0 0 1-1.8 2z"/></svg>
+                    Connect Discord & Server
+                </h3>
+                <button class="contact-modal-close" id="discordModalClose">&times;</button>
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px; line-height:1.5;">
+                Enter your Discord User ID & any Server invite link to instantly load your real avatar, live status, Nitro badges & server stats!
+            </p>
+            <form id="discordQuickForm" class="contact-form">
+                <div class="form-group">
+                    <label for="discordInputUserId">Your Discord User ID (18-19 Digits)</label>
+                    <input type="text" id="discordInputUserId" placeholder="e.g. 1525762942081962096" required>
+                    <small style="display:block; margin-top:4px; font-size:11px; color:var(--text-sub);">
+                        (In Discord: User Settings ⚙️ &gt; Advanced &gt; Developer Mode ON &gt; Right click avatar &gt; Copy User ID)
+                    </small>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="form-group">
+                        <label for="discordInputDisplayName">Display Name</label>
+                        <input type="text" id="discordInputDisplayName" placeholder="DANGER SHAWON">
+                    </div>
+                    <div class="form-group">
+                        <label for="discordInputStatus">Presence Status</label>
+                        <select id="discordInputStatus" style="width:100%; padding:10px 14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius-sm); color:#fff; font-family:var(--font-main);">
+                            <option value="dnd" selected>⛔ Do Not Disturb (dnd)</option>
+                            <option value="online">🟢 Online</option>
+                            <option value="idle">🟡 Idle</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="discordInputQuote">Custom Status Quote</label>
+                    <input type="text" id="discordInputQuote" placeholder="&quot;Legends don't announce themselves. They&quot;">
+                </div>
+                <div class="form-group">
+                    <label for="discordInputEmojis">Status Emojis / Bar</label>
+                    <input type="text" id="discordInputEmojis" placeholder="🎮 🖥️ ⚔️ ⚙️">
+                </div>
+                <div class="form-group">
+                    <label for="discordInputProfileEffect">Discord Profile Effect Frame</label>
+                    <select id="discordInputProfileEffect" style="width:100%; padding:10px 14px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius-sm); color:#fff; font-family:var(--font-main);">
+                        <option value="white_roses" selected>🌸 White Roses &amp; Silver Vines (Discord Nitro)</option>
+                        <option value="none">None (Clean Minimalist)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="discordInputServerCode">Your Discord Server Link or Code</label>
+                    <input type="text" id="discordInputServerCode" placeholder="e.g. https://discord.gg/yourserver or yourserver">
+                    <small style="display:block; margin-top:4px; font-size:11px; color:var(--text-sub);">
+                        (Paste any invite link to show live server name, icon, online & member count)
+                    </small>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; margin-bottom: 8px;">
+                    <a href="admin.html" target="_blank" style="color:#a855f7; font-size:12px; text-decoration:underline; font-weight:500;">👑 Open Full Standalone Admin Panel (admin.html) &rarr;</a>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="submit" class="contact-submit-btn" style="background:#5865F2; flex: 2; margin-top: 0;">⚡ Sync Profile & Server Now</button>
+                    <button type="button" id="discordResetBtn" class="contact-submit-btn" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); flex: 1; margin-top: 0; color:#fff;" title="Restore Shahon Default Profile & Server">🔄 Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hidden Admin Panel (Owner Control Panel) -->
+    <div class="admin-overlay-container" id="adminPanel">
+        <div class="admin-panel-card">
+            <div class="admin-panel-header">
+                <h3>👑 Template Owner Control Panel</h3>
+                <button class="admin-panel-close" id="adminCloseBtn">&times;</button>
+            </div>
+            <div class="admin-panel-body">
+                <nav class="admin-tabs-nav">
+                    <button class="admin-tab-btn active" data-tab="general">General & Bio</button>
+                    <button class="admin-tab-btn" data-tab="discord">Discord Setup</button>
+                    <button class="admin-tab-btn" data-tab="playlist">Songs & Videos</button>
+                    <button class="admin-tab-btn" data-tab="export">Export Config</button>
+                </nav>
+                <div class="admin-tabs-content">
+                    <!-- General Tab -->
+                    <div class="admin-tab-pane active" id="tab-general">
+                        <div class="admin-form-group">
+                            <label>Display Username</label>
+                            <input type="text" id="adminUsername" placeholder="Username">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Avatar URL</label>
+                            <input type="text" id="adminAvatar" placeholder="Avatar URL">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Bio Text (HTML Supported)</label>
+                            <textarea id="adminBio" rows="4" placeholder="Bio description"></textarea>
+                        </div>
+                    </div>
+                    <!-- Discord Tab -->
+                    <div class="admin-tab-pane" id="tab-discord">
+                        <div class="admin-form-group">
+                            <label>Discord User ID (For Lanyard Live Status)</label>
+                            <input type="text" id="adminDiscordId" placeholder="1525762942081962096">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Discord Server 1 Invite Code</label>
+                            <input type="text" id="adminServer1" placeholder="yourserver">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Discord Server 2 Invite Code</label>
+                            <input type="text" id="adminServer2" placeholder="secondserver">
+                        </div>
+                    </div>
+                    <!-- Playlist Tab -->
+                    <div class="admin-tab-pane" id="tab-playlist">
+                        <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">All 6 songs and trimmed background videos are currently loaded. You can switch tracks or add your own MP4/MP3 links!</p>
+                        <div id="adminPlaylistContainer"></div>
+                    </div>
+                    <!-- Export Tab -->
+                    <div class="admin-tab-pane" id="tab-export">
+                        <p style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">
+                            Copy this configuration or click Download to replace your <code>config.js</code> file!
+                        </p>
+                        <pre class="export-code-box"><code id="configExportCode"></code></pre>
+                        <button type="button" class="admin-save-btn" id="copyConfigBtn">Copy Config to Clipboard</button>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-panel-footer" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <span style="font-size:12px; color:var(--text-sub);">Press Ctrl + Shift + A anytime</span>
+                <div style="display:flex; gap:10px;">
+                    <a href="admin.html" target="_blank" class="admin-save-btn" style="background:#7c3aed; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">🚀 Full Admin Dashboard (admin.html)</a>
+                    <button type="button" class="admin-save-btn" id="adminApplyBtn">Apply Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

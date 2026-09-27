@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝐸𝓂𝑜𝓃.7𝓍𝒳</title>
+    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/avatars/1213100866916196423/83c71e5bf03e8e3df218054818ece685.png?size=128">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/otpauth/dist/otpauth.umd.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Snowflakes Effect (Guns.lol replica) -->
+    <div class="snowflakes">
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+        <div class="snowflake"><div class="snowflake-inner">❅</div></div>
+    </div>
+
+    <!-- Ambient Particles Canvas (High-Performance GPU System for Cursor Sparkles) -->
+    <canvas id="ambient-particles-canvas"></canvas>
+
+    <!-- Entry Overlay -->
+    <div id="entry-overlay" class="entry-overlay">
+        <div class="entry-container">
+            <div class="entry-crown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="loading-crown-svg"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/></svg>
+            </div>
+            <div class="loading-progress" id="loading-progress">0%</div>
+            <div class="entry-btn-wrapper" id="entry-btn-wrapper">
+                <button class="premium-enter-btn" id="entry-btn">
+                    <span class="enter-btn-content">
+                        Enter Baby
+                        <svg class="loading-love-svg-inline" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Video -->
+    <video id="bg-video" autoplay muted playsinline loop>
+        <source src="./assets/background/background.mov" type="video/quicktime">
+        <source src="./assets/background/background.mp4" type="video/mp4">
+    </video>
+    <div id="yt-player-container" style="opacity: 0; pointer-events: none;"></div>
+    <div id="outro-overlay">
+        <div class="outro-content">
+            <div class="outro-logo">Emon.7xX</div>
+            <div class="outro-tagline">DESIGNER & DEVELOPER</div>
+            <div class="outro-particles">
+                <span class="outro-dot dot1"></span>
+                <span class="outro-dot dot2"></span>
+                <span class="outro-dot dot3"></span>
+                <span class="outro-dot dot4"></span>
+                <span class="outro-dot dot5"></span>
+            </div>
+        </div>
+    </div>
+    <div class="bg-overlay"></div>
+
+    <!-- Volume Controller -->
+    <div class="volume-controller" id="volumeController">
+        <div class="volume-btn" id="volumeToggle">
+            <svg id="volume-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                <line x1="23" y1="9" x2="17" y2="15"/>
+                <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+        </div>
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0">
+    </div>
+
+    <!-- Card Wrapper -->
+    <div class="card-wrapper">
+        <div class="bio-card">
+            <!-- Header Section -->
+            <div class="card-header">
+                <div class="avatar-wrapper">
+                    <img class="main-avatar" id="main-profile-avatar"
+                        src="https://cdn.discordapp.com/avatars/1213100866916196423/83c71e5bf03e8e3df218054818ece685.png?size=512"
+                        alt="Avatar">
+                    <img class="avatar-decoration" id="main-profile-decoration"
+                        src="https://cdn.discordapp.com/avatar-decoration-presets/a_f3af281c65cf0cf590e9e1f59e9c6cf6.png"
+                        alt="Decoration">
+                </div>
+                <div class="header-text-column">
+                    <div class="header-text-inner">
+                        <div class="username-row">
+                            <h1 class="username">𝐸𝓂𝑜𝓃.7𝓍𝒳</h1>
+                            <svg class="header-verified-badge" data-tooltip="Verified" xmlns="http://www.w3.org/2000/svg" viewBox="1 1.5 22 21">
+                                <path fill="currentColor"
+                                    d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45l-3.4 1.45Zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12l3.55 3.55Z" />
+                            </svg>
+                        </div>
+                        <!-- Badges Capsule -->
+                        <div class="badges-wrapper">
+                            <div class="badge-item" data-tooltip="Premium">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="23 32 465 448">
+                                    <path fill="currentColor"
+                                        d="M396.31 32H264l84.19 112.26L396.31 32zm-280.62 0l48.12 112.26L248 32H115.69zM256 74.67L192 160h128l-64-85.33zm166.95-23.61L376.26 160H488L422.95 51.06zm-333.9 0L23 160h112.74L89.05 51.06zM146.68 192H24l222.8 288h.53L146.68 192zm218.64 0L264.67 480h.53L488 192H365.32zm-35.93 0H182.61L256 400l73.39-208z" />
+                                </svg>
+                            </div>
+                            <div class="badge-item" data-tooltip="Flame">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="4.99 3 14 18">
+                                    <path fill="currentColor"
+                                        d="M17.66 11.2c-.23-.3-.51-.56-.77-.82c-.67-.6-1.43-1.03-2.07-1.66C13.33 7.26 13 4.85 13.95 3c-.95.23-1.78.75-2.49 1.32c-2.59 2.08-3.61 5.75-2.39 8.9c.04.1.08.2.08.33c0 .22-.15.42-.35.5c-.23.1-.47.04-.66-.12a.58.58 0 0 1-.14-.17c-1.13-1.43-1.31-3.48-.55-5.12C5.78 10 4.87 12.3 5 14.47c.06.5.12 1 .29 1.5c.14.6.41 1.2.71 1.73c1.08 1.73 2.95 2.97 4.96 3.22c2.14.27 4.43-.12 6.07-1.6c1.83-1.66 2.47-4.32 1.53-6.6l-.13-.26c-.21-.46-.77-1.26-.77-1.26m-3.16 6.3c-.28.24-.74.5-1.1.6c-1.12.4-2.24-.16-2.9-.82c1.19-.28 1.9-1.16 2.11-2.05c.17-.8-.15-1.46-.28-2.23c-.12-.74-.1-1.37.17-2.06c.19.38.39.76.63 1.06c.77 1 1.98 1.44 2.24 2.8c.04.14.06.28.06.43c.03.82-.33 1.72-.93 2.27Z" />
+                                </svg>
+                            </div>
+                            <div class="badge-item" data-tooltip="Server Booster">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 3 20 17.35">
+                                    <path fill="currentColor"
+                                        d="M12 16a3 3 0 0 1-3-3c0-1.12.61-2.1 1.5-2.61l9.71-5.62l-5.53 9.58c-.5.98-1.51 1.65-2.68 1.65m0-13c1.81 0 3.5.5 4.97 1.32l-2.1 1.21C14 5.19 13 5 12 5a8 8 0 0 0-8 8c0 2.21.89 4.21 2.34 5.65h.01c.39.39.39 1.02 0 1.41s-1.03.39-1.42.01A9.97 9.97 0 0 1 2 13A10 10 0 0 1 12 3m10 10c0 2.76-1.12 5.26-2.93 7.07c-.39.38-1.02.38-1.41-.01a.996.996 0 0 1 0-1.41A7.95 7.95 0 0 0 20 13c0-1-.19-2-.54-2.9L20.67 8C21.5 9.5 22 11.18 22 13" />
+                                </svg>
+                            </div>
+                            <div class="badge-item" data-tooltip="Gifter">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 2 16 16">
+                                    <g fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M14 6a2.5 2.5 0 0 0-4-3a2.5 2.5 0 0 0-4 3H3.25C2.56 6 2 6.56 2 7.25v.5C2 8.44 2.56 9 3.25 9h6V6h1.5v3h6C17.44 9 18 8.44 18 7.75v-.5C18 6.56 17.44 6 16.75 6zm-1-1.5a1 1 0 0 1-1 1h-1v-1a1 1 0 1 1 2 0m-6 0a1 1 0 0 0 1 1h1v-1a1 1 0 0 0-2 0"
+                                            clip-rule="evenodd" />
+                                        <path
+                                            d="M9.25 10.5H3v4.75A2.75 2.75 0 0 0 5.75 18h3.5zm1.5 7.5v-7.5H17v4.75A2.75 2.75 0 0 1 14.25 18z" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="badge-item" data-tooltip="Star Access">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20">
+                                    <path fill="currentColor"
+                                        d="M9.153 5.408C10.42 3.136 11.053 2 12 2c.947 0 1.58 1.136 2.847 3.408l.328.588c.36.646.54.969.82 1.182c.28.213.63.292 1.33.45l.636.144c2.46.557 3.689.835 3.982 1.776c.292.94-.546 1.921-2.223 3.882l-.434.507c-.476.557-.715.836-.822 1.18.107.345-.071.717.001 1.46l.066.677c.253 2.617.38 3.925-.386 4.506c-.766.582-1.918.051-4.22-1.009l-.597-.274c-.654-.302-.981-.452-1.328-.452c-.347 0-.674.15-1.329.452l-.595.274c-2.303 1.06-3.455 1.59-4.22 1.01c-.767-.582-.64-1.89-.387-4.507l.066-.676c.072-.744.108-1.116 0-1.46c-.106-.345-.345-.624-.821-1.18l-.434-.508c-1.677-1.96-2.515-2.941-2.223-3.882c.293-.941(1.523-1.22 3.983-1.776l.636-.144c.699-.158 1.048-.237 1.329-.45.28-.213.46-.536.82-1.182l.328-.588Z" />
+                                </svg>
+                            </div>
+                            <div class="badge-item" data-tooltip="Domain Legend">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="2.18 2.38 19.77 19.77">
+                                    <path fill="currentColor"
+                                        d="m2.45 10.575l4.2-4.2q.35-.35.825-.5t.975-.05l1.3.275Q8.4 7.7 7.625 9t-1.5 3.15zm5.125 2.275q.575-1.8 1.563-3.4t2.387-3q2.2-2.2 5.025-3.287t5.275-.663q.425 2.45-.65 5.275T17.9 12.8q-1.375 1.375-3 2.388t-3.425 1.587zm6.9-3q.575.575 1.413.575T17.3 9.85t.575-1.412t-.575-1.413-1.412-.575t-1.413.575t-.575 1.413t.575 1.412m-.7 12.025l-1.6-3.675q1.85-.725 3.163-1.5t2.912-2.125l.25 1.3q.1.5-.05.988t-.5.837zM4.05 16.05q.875-.875 2.125-.888t2.125.863t.875 2.125t-.875 2.125q-.625.625-2.087 1.075t-4.038.8q.35-2.575.8-4.025T4.05 16.05" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widgets Grid -->
+            <div class="widgets-grid">
+                <!-- Left Widget (Discord Status) -->
+                <div class="widget-card user-status-widget">
+                    <div class="status-avatar-container">
+                        <img class="status-avatar-img" id="discord-user-avatar"
+                            src="https://cdn.discordapp.com/avatars/1213100866916196423/83c71e5bf03e8e3df218054818ece685.png?size=512"
+                            alt="Discord Avatar">
+                        <div class="status-badge-icon" id="discord-status-badge"></div>
+                    </div>
+                    <div class="status-text-container">
+                        <div class="status-username-row">
+                            <span class="status-username" id="discord-user-name">𝐀𝐩𝐨𝐋𝐋𝐘𝐨𝐧</span>
+                            <svg class="discord-verified-badge" data-tooltip="Verified" xmlns="http://www.w3.org/2000/svg" viewBox="1 1.5 22 21">
+                                <path fill="currentColor"
+                                    d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45l-3.4 1.45Zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12l3.55 3.55Z" />
+                            </svg>
+                        </div>
+                        <span class="status-sub" id="discord-user-status"><img
+                                src="https://cdn.discordapp.com/emojis/1475884933867245708.webp" class="status-emoji"
+                                referrerpolicy="no-referrer" alt=""> They talk. I level up.⚡</span>
+                    </div>
+                    <div class="status-activity-icon-container" id="discord-activity-icon-container"></div>
+                </div>
+
+                <!-- Right Widget (Discord Server) -->
+                <div class="widget-card discord-widget">
+                    <div class="discord-header-tag">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="1.5 4 21 16">
+                            <path fill="currentColor"
+                                d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02 0 .02-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02M8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12m6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12" />
+                        </svg>
+                        Discord
+                    </div>
+                    <div class="server-avatar-container">
+                        <img class="server-avatar-img" id="discord-guild-icon"
+                            src="https://cdn.discordapp.com/icons/1459715014117163061/fb5a1760a0b04e15c6b34920f104172e.png"
+                            alt="Server Icon">
+                    </div>
+                    <div class="server-info">
+                        <div class="server-name-row" id="discord-guild-name">𝐓ɪᴍᴇ𝐏ᴀss 𝐙ᴏɴᴇ !!</div>
+                        <div class="server-stats">
+                            <span class="widget-badge">owner</span>
+                            <span>
+                                <span class="online-indicator"></span>
+                                <span id="discord-online-count">-- Online</span>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                    <path fill="currentColor" d="M8 4a4 4 0 1 1 0 8a4 4 0 0 1 0-8" />
+                                </svg>
+                                <span id="discord-member-count">-- Members</span>
+                            </span>
+                        </div>
+                        <a class="join-btn" id="discord-join-btn" target="_blank"
+                            href="https://discord.gg/x9xWhcQVAj">Join</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Icons Row -->
+            <div class="social-icons-row">
+                <a class="social-icon-link" target="_blank" href="https://facebook.com/emon.7xx" title="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.69c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.24c-1.23 0-1.61.76-1.61 1.54V12h2.74l-.44 3h-2.3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                    </svg>
+                </a>
+                <a class="social-icon-link" target="_blank" href="https://instagram.com/emon.7xx" title="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0 3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                </a>
+                <a class="social-icon-link" target="_blank" href="https://tiktok.com/@emon.7xx" title="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="3.2 2 17.43 19.99">
+                        <path fill="currentColor"
+                            d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74a2.89 2.89 0 0 1 2.31-4.64a2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                    </svg>
+                </a>
+                <a class="social-icon-link" target="_blank" href="https://threads.net/@emon.7xx" title="Threads">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10c2.42 0 4.64-.86 6.37-2.3l-1.44-1.44C15.58 19.34 13.88 20 12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8c4.27 0 7.74 3.35 7.98 7.57a3.02 3.02 0 0 1-2.98 3.43c-.88 0-1.64-.42-2.1-1.07A4.47 4.47 0 0 1 12 16.5c-2.48 0-4.5-2.02-4.5-4.5S9.52 7.5 12 7.5c1.47 0 2.78.71 3.6 1.8l1.45-1.45A6.47 6.47 0 0 0 12 5.5C8.41 5.5 5.5 8.41 5.5 12s2.91 6.5 6.5 6.5c1.55 0 2.97-.55 4.09-1.47A5.02 5.02 0 0 0 21 13c0-5.52-4.48-10-10-10zm0 7.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z" />
+                    </svg>
+                </a>
+                <a class="social-icon-link" target="_blank" href="https://x.com/emon7xx" title="X">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                </a>
+                <a class="social-icon-link" target="_blank" href="https://github.com/emon7xx" title="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                    </svg>
+                </a>
+                <a class="social-icon-link" target="_blank" href="https://pinterest.com/emon7xx" title="Pinterest">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.367 18.62 0 12.017 0z" />
+                    </svg>
+                </a>
+                <a class="social-icon-link" target="_blank" href="https://t.me/emon7xX" title="Telegram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.67-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.75 3.99-1.74 6.66-2.89 8.01-3.45 3.81-1.59 4.6-1.87 5.12-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.03.2z" />
+                    </svg>
+                </a>
+                <a class="social-icon-link" target="_blank" href="https://discord.com/users/1213100866916196423" title="Discord">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="1.96 4.26 20.03 15.53">
+                        <path fill="currentColor"
+                            d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1a14.66 14.66 0 0 0-4.58 0a10.14 10.14 0 0 0-.53-1.1a16 16 0 0 0-4.13 1.3a17.33 17.33 0 0 0-3 11.59a16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83a3.39 3.39 0 0 0 .42-.33a11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84a12.41 12.41 0 0 0 1.08 1.78a16.44 16.44 0 0 0 5.06-2.59a17.22 17.22 0 0 0-3-11.59a16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.93 1.93 0 0 1 1.8 2a1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.92 1.92 0 0 1 1.8 2a1.92 1.92 0 0 1-1.8 2z" />
+                    </svg>
+                </a>
+                <a class="social-icon-link" target="_blank" href="https://linkedin.com/in/emon7xx" title="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.74a1.45 1.45 0 1 0 0 2.9 1.45 1.45 0 0 0 0-2.9z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio-container">
+        <div class="portfolio-section">
+            <!-- Music Player Module (Catchii Synced Audio Lyrics Replica) -->
+            <div class="portfolio-module reveal-now-playing" id="music-player">
+                <div class="module-header-row">
+                    <h2 class="module-title">Now Playing</h2>
+                    <button class="focus-mode-toggle" id="focusModeToggle" title="Toggle Focus Mode">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="focus-icon-expand">
+                            <polyline points="15 3 21 3 21 9"/>
+                            <polyline points="9 21 3 21 3 15"/>
+                            <line x1="21" y1="3" x2="14" y2="10"/>
+                            <line x1="3" y1="21" x2="10" y2="14"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="focus-icon-shrink hidden">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="module-content music-player-content">
+                    <div class="music-track-info">
+                        <div class="music-cover-wrapper">
+                            <img src="https://img.youtube.com/vi/deS2hPsEN1o/hqdefault.jpg" alt="Track Cover" class="music-cover-img" id="musicCover">
+                        </div>
+                        <div class="music-metadata">
+                            <div class="music-track-title" id="musicTitle">Rich Nigga Vibe</div>
+                            <div class="music-track-artist" id="musicArtist">Chris Brown</div>
+                        </div>
+                        <div class="music-visualizer" id="musicVisualizer">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Music Controls & Timeline (Guns.lol style) -->
+                    <div class="music-controls-container">
+                        <div class="music-progress-wrapper">
+                            <span class="music-time-current" id="musicTimeCurrent">0:00</span>
+                            <div class="music-progress-bar-container" id="musicProgressBarContainer">
+                                <div class="music-progress-bar-fill" id="musicProgressBarFill"></div>
+                            </div>
+                            <span class="music-time-total" id="musicTimeTotal">0:00</span>
+                        </div>
+                        <div class="music-buttons">
+                            <button class="music-speed-btn" id="musicSpeedBtn" title="Playback Speed">1.0x</button>
+                            <button class="music-ctrl-btn" id="musicPrevBtn" title="Previous">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20" fill="currentColor"/><line x1="5" y1="19" x2="5" y2="5" stroke-width="2.5"/></svg>
+                            </button>
+                            <button class="music-ctrl-btn play-btn" id="musicPlayBtn" title="Play">
+                                <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
+                                <svg id="pauseIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16" fill="currentColor"/><rect x="14" y="4" width="4" height="16" fill="currentColor"/></svg>
+                            </button>
+                            <button class="music-ctrl-btn" id="musicNextBtn" title="Next">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4" fill="currentColor"/><line x1="19" y1="5" x2="19" y2="19" stroke-width="2.5"/></svg>
+                            </button>
+                            <button class="music-ctrl-btn" id="musicQueueBtn" title="Show Queue">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hidden audio element for other tracks -->
+                    <audio id="playlist-audio" preload="auto"></audio>
+
+                    <!-- Lyrics Scrolling Container -->
+                    <div class="lyrics-container">
+                        <div class="lyrics-sync-controls">
+                            <button class="lyric-sync-btn" id="lyricSyncMinus" title="Speed up lyrics by 0.5s">-0.5s</button>
+                            <span class="lyric-sync-title">Sync Adjust</span>
+                            <button class="lyric-sync-btn" id="lyricSyncPlus" title="Delay lyrics by 0.5s">+0.5s</button>
+                        </div>
+                        <div class="lyrics-scroll" id="lyricsScroll">
+                            <div class="lyrics-line" data-time="0">Mustard on the beat, ho</div>
+                            <div class="lyrics-line active" data-time="3.0">You know I'm hittin' you up this late at night</div>
+                            <div class="lyrics-line" data-time="6.5">'Cause I'm tryna fuck</div>
+                            <div class="lyrics-line" data-time="8.5">I'm tryna start with the conversation</div>
+                            <div class="lyrics-line" data-time="11.5">You actin' scared of a real nigga screamin', "Thug life"</div>
+                            <div class="lyrics-line" data-time="14.5">Got that pussy wet, drippin' with the condensation</div>
+                            <div class="lyrics-line" data-time="18.0">I know that Henny got you stuck, but it's bottom's up</div>
+                        </div>
+                    </div>
+
+                    <!-- Search Bar & Results Panel -->
+                    <div class="music-search-container">
+                        <div class="search-input-wrapper">
+                            <input type="text" id="musicSearchInput" placeholder="Search any Music..." autocomplete="off">
+                            <button id="musicSearchBtn" title="Search">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            </button>
+                        </div>
+                        <div class="search-results-panel" id="musicSearchResults"></div>
+                    </div>
+                    <!-- Queue Panel overlay -->
+                    <div class="music-queue-panel" id="musicQueuePanel" style="display: none;">
+                        <div class="queue-panel-header">
+                            <span class="queue-panel-title">Play Queue</span>
+                            <button class="queue-close-btn" id="closeQueueBtn" title="Close">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            </button>
+                        </div>
+                        <div class="queue-tracks-list" id="queueTracksList">
+                            <div class="queue-empty-text">Queue is empty.</div>
+                        </div>
+                        <div class="queue-search-results" id="queueSearchResults" style="display: none;"></div>
+                        <!-- Queue dedicated search component -->
+                        <div class="queue-search-wrapper">
+                            <input type="text" id="queueSearchInput" placeholder="Search & add to queue...">
+                            <button id="queueSearchBtn" title="Search">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-section">
+            <!-- About Me Module -->
+            <div class="portfolio-module reveal-about-me" id="about-me">
+                <h2 class="module-title">About Me</h2>
+                <div class="module-content about-module-content">
+                    <div class="about-flex-layout">
+                        <!-- Left Info Content -->
+                        <div class="about-bio-info">
+                            <p class="about-desc">
+                                Hi, I'm <em>Emon</em> — a passionate self-taught developer and designer crafting clean, interactive web experiences.<br>
+                                I specialize in turning creative concepts into minimal, aesthetic code.<br><br>
+                                Currently building things from <em>Bangladesh</em>.
+                            </p>
+                        </div>
+                        
+                        <!-- Side-by-side Widgets -->
+                        <div class="about-widgets-container">
+                            <!-- Discord Server Widget (Apollyon Corp) -->
+                            <div class="about-widget-card discord-widget">
+                                <div class="widget-left">
+                                    <div class="server-avatar-container" id="apollyonGuildIconContainer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36" class="discord-svg-logo">
+                                            <path fill="#5865F2" d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,67.43,67.43,0,0,1-10.5-5c1.24-.92,2.45-1.9,3.61-2.91a75.22,75.22,0,0,0,71.06,0c1.17,1,2.37,2,3.61,2.91a67.43,67.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129.07,50.71,123.2,27.87,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="widget-details">
+                                        <span class="widget-title">𝐀𝐩𝐨𝐋𝐋𝐘𝐨𝐧 Corp</span>
+                                        <span class="widget-subtitle">
+                                            <span style="display: flex; flex-direction: column; gap: 3px; margin-right: 4px;">
+                                                <span class="widget-badge" style="margin-right: 0; text-align: center;">owner</span>
+                                                <span class="widget-badge developer-badge" style="margin-right: 0; text-align: center;">developer</span>
+                                            </span>
+                                            <span id="apollyon-server-members">Loading counts...</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <a href="https://discord.gg/Yw9MePfU8h" target="_blank" class="widget-join-btn">Join</a>
+                            </div>
+                            
+                            <!-- Analog Clock Timezone Widget (Guns.lol style) -->
+                            <div class="about-widget-card clock-widget">
+                                <div class="widget-left">
+                                     <div class="analog-clock">
+                                         <div class="clock-dot dot-12"></div>
+                                         <div class="clock-dot dot-3"></div>
+                                         <div class="clock-dot dot-6"></div>
+                                         <div class="clock-dot dot-9"></div>
+                                         <div class="hand hour-hand" id="hour-hand"></div>
+                                         <div class="hand minute-hand" id="minute-hand"></div>
+                                         <div class="hand second-hand" id="second-hand"></div>
+                                         <div class="center-dot"></div>
+                                     </div>
+                                    <div class="widget-details">
+                                        <span class="widget-time-digital" id="digital-clock">00:00:00</span>
+                                        <span class="widget-timezone-info" id="timezone-date">Wed, Jul 1 • GMT+6</span>
+                                        <span class="widget-user-time" id="user-local-clock">local time: 00:00 (24h)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Skills/Badges Container (Catchii style) -->
+                    <div class="skills-wrapper">
+                        <div class="skills-list">
+                            <div class="skill-badge">
+                                <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" class="badge-icon">
+                                <span>Python</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="JavaScript" class="badge-icon">
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://img.icons8.com/color/48/typescript--v1.png" alt="TypeScript" class="badge-icon">
+                                <span>TypeScript</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://img.icons8.com/fluent/48/node-js.png" alt="Next.js" class="badge-icon">
+                                <span>Next.js</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML5" class="badge-icon">
+                                <span>HTML5/CSS3</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://img.icons8.com/color/48/cloudflare.png" alt="Cloudflare" class="badge-icon">
+                                <span>Cloudflare</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://img.icons8.com/color/48/discord-new-logo.png" alt="Discord API" class="badge-icon">
+                                <span>Discord API</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="portfolio-section">
+            <!-- Featured Projects Module -->
+            <div class="portfolio-module reveal-projects" id="projects">
+                <h2 class="module-title">Projects I Work On</h2>
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card">
+                        <div class="project-preview-container">
+                            <img src="emon-portfolio-preview.png" alt="Emon Portfolio Project" class="project-preview-img">
+                        </div>
+                        <div class="project-info">
+                            <h3 class="project-name">𝐸𝓂𝑜𝓃.7𝓍𝒳 - <span class="highlight-italic">portfolio</span></h3>
+                            <p class="project-desc">A premium portfolio website featuring 3D tilt interaction, glowing badges, custom audio stream control, and canvas-based animations.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML5</span>
+                                <span class="project-tag">CSS3</span>
+                                <span class="project-tag">JavaScript</span>
+                            </div>
+                            <a href="https://guns.lol/emon.7xx" target="_blank" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="project-card">
+                        <div class="project-preview-container">
+                            <img src="https://r2.guns.lol/515db85a-c7c5-43d5-a423-874bdcb23605.webp" alt="Discord Bot Project" class="project-preview-img">
+                        </div>
+                        <div class="project-info">
+                            <h3 class="project-name">Discord Bot Hub</h3>
+                            <p class="project-desc">A Discord server managing bot systems using Node.js and Lanyard API integrations. For custom bot development, reach out on Discord.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">Discord.js</span>
+                                <span class="project-tag">API</span>
+                            </div>
+                            <a href="https://discord.com/users/1213100866916196423" target="_blank" class="project-link">Contact Me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="portfolio-section">
+            <!-- Custom Markdown / Info Module (Other Bios) -->
+            <div class="portfolio-module reveal-other-bios" id="other-bios">
+                <h2 class="module-title">Other Bios</h2>
+                <div class="module-content other-bios-flex">
+                    <div class="bio-list-container">
+                        <div class="bio-list-item">
+                            <span class="bio-role">〔 &lt;/dev&gt; 〕</span>
+                            <span class="bio-arrow">➥</span>
+                            <a href="https://facebook.com/emon.7xx" target="_blank" class="bio-link">Emon Hossen</a>
+                        </div>
+                        <div class="bio-list-item">
+                            <span class="bio-role">〔 another profile 〕</span>
+                            <span class="bio-arrow">➥</span>
+                            <a href="https://guns.lol/emon.7xx" target="_blank" class="bio-link">Emon.7xX</a>
+                        </div>
+                        <div class="bio-list-item">
+                            <span class="bio-role">〔 alias 〕</span>
+                            <span class="bio-arrow">➥</span>
+                            <a href="https://emon7xx.xyz/" target="_blank" class="bio-link">Emon.7xX <span class="current-tag">(you are here)</span></a>
+                        </div>
+                    </div>
+                    <!-- Custom Premium Buttons Grid -->
+                    <div class="custom-buttons-grid">
+                        <a href="https://github.com/emon7xx" target="_blank" class="custom-premium-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            GitHub Profile
+                        </a>
+                        <a href="https://t.me/emon7xX" target="_blank" class="custom-premium-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                            Telegram
+                        </a>
+                        <a href="https://wa.link/05hjjv" target="_blank" class="custom-premium-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-section">
+            <!-- Thanks Module -->
+            <div class="portfolio-module reveal-thanks" id="thanks-module">
+                <div class="thanks-card">
+                    <div class="thanks-crown-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="thanks-crown-svg"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/></svg>
+                    </div>
+                    <h2 class="thanks-title">Thanks for Visiting</h2>
+                    <p class="thanks-subtitle">Let's build something extraordinary together.</p>
+                    <div class="thanks-sparkles-row">
+                        <span class="sparkle-item">✦</span>
+                        <span class="sparkle-item">✧</span>
+                        <span class="sparkle-item">✦</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Scroll Pagination Dots (Guns.lol style) -->
+    <div class="scroll-pagination" id="scrollPagination">
+        <div class="pagination-line">
+            <div class="pagination-line-fill" id="paginationLineFill"></div>
+        </div>
+        <div class="pagination-dot active" data-target="0" data-tooltip="Profile"></div>
+        <div class="pagination-dot" data-target="1" data-tooltip="Now Playing"></div>
+        <div class="pagination-dot" data-target="2" data-tooltip="About Me"></div>
+        <div class="pagination-dot" data-target="3" data-tooltip="Projects"></div>
+        <div class="pagination-dot" data-target="4" data-tooltip="Links & Team"></div>
+        <div class="pagination-dot" data-target="5" data-tooltip="Thanks"></div>
+    </div>
+
+    <div class="viewport-footer-left">
+        <span class="view-counter">
+            <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width: 13px; height: 13px; color: rgba(255,255,255,0.7); filter: drop-shadow(0 0 3px rgba(255,255,255,0.25));"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3" fill="currentColor" fill-opacity="0.15"/></svg>
+            <span id="views-count">...</span>
+        </span>
+        <span class="footer-divider">|</span>
+        <span class="location-badge">
+            <svg class="footer-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width: 13px; height: 13px; color: rgba(255,255,255,0.7); filter: drop-shadow(0 0 3px rgba(255,255,255,0.25));"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8Z"/><circle cx="12" cy="10" r="2.5" fill="currentColor" fill-opacity="0.2"/></svg>
+            Bangladesh
+        </span>
+    </div>
+
+    <!-- Floating Support/Contact Button & Modal -->
+    <div class="floating-contact-btn" id="contactBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-btn-svg">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span class="contact-btn-pulse"></span>
+    </div>
+
+    <div class="contact-modal-overlay" id="contactOverlay">
+        <div class="contact-modal-card">
+            <div class="contact-modal-header">
+                <div class="contact-title-row">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="contact-modal-title-svg">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <h3>Send a Message</h3>
+                </div>
+                <button class="contact-modal-close" id="contactCloseBtn">&times;</button>
+            </div>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="contactName">Your Name</label>
+                    <input type="text" id="contactName" required placeholder="What should I call you?">
+                </div>
+                <div class="form-group">
+                    <label for="contactInfo">Your Discord or Email</label>
+                    <input type="text" id="contactInfo" required placeholder="How can I reply to you?">
+                </div>
+                <div class="form-group">
+                    <label for="contactMsg">Message</label>
+                    <textarea id="contactMsg" required placeholder="Write your message here..."></textarea>
+                </div>
+                <button type="submit" class="contact-submit-btn" id="contactSubmitBtn">
+                    <span class="submit-btn-txt">Send Message</span>
+                    <div class="submit-btn-loader"></div>
+                </button>
+            </form>
+            <div class="contact-status-msg" id="contactStatusMsg"></div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Overlay (emon.7xxadmin@90 passcode) -->
+    <div class="admin-overlay-container" id="adminPanel">
+        <div class="admin-panel-card">
+            <div class="admin-panel-header">
+                <div class="admin-header-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="admin-header-icon">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    <h3>Owner Control Panel</h3>
+                </div>
+                <button class="admin-panel-close" id="adminCloseBtn">&times;</button>
+            </div>
+            
+            <div class="admin-panel-body">
+                <!-- Left Tabs Navigation -->
+                <div class="admin-tabs-nav" id="adminTabsNav">
+                    <button class="admin-tab-btn active" data-tab="general">General & Security</button>
+                    <button class="admin-tab-btn" data-tab="profile">Profile & Socials</button>
+                    <button class="admin-tab-btn" data-tab="about">About & Clock</button>
+                    <button class="admin-tab-btn" data-tab="projects">Projects & Skills</button>
+                    <button class="admin-tab-btn" data-tab="playlist">Playlist & Buttons</button>
+                    <button class="admin-tab-btn" data-tab="export">Export Config</button>
+                </div>
+                
+                <!-- Right Form Content -->
+                <div class="admin-tabs-content">
+                    <!-- General Tab -->
+                    <div class="admin-tab-pane active" id="tab-general">
+                        <div class="admin-form-row">
+                            <div class="admin-form-group">
+                                <label for="adminPass">Admin Panel Password</label>
+                                <input type="text" id="adminPass" placeholder="Leave blank to keep current password">
+                            </div>
+                            <div class="admin-form-group checkbox-group" style="margin-top: 10px; margin-bottom: 15px;">
+                                <label for="enableDirectCodeLogin" class="checkbox-label">
+                                    <input type="checkbox" id="enableDirectCodeLogin">
+                                    Enable Direct Code Login (Log in by entering just the 6-digit code in search box)
+                                </label>
+                            </div>
+                            <div class="admin-form-group checkbox-group">
+                                <label for="bypassDevTools" class="checkbox-label">
+                                    <input type="checkbox" id="bypassDevTools">
+                                    Bypass DevTools Block (Enables Inspect Element for Owner)
+                                </label>
+                            </div>
+                            <div class="admin-form-group checkbox-group">
+                                <label for="allowCopyPaste" class="checkbox-label">
+                                    <input type="checkbox" id="allowCopyPaste">
+                                    Allow Copy-Paste (Enables selection & clipboard operations)
+                                </label>
+                            </div>
+                            <div class="admin-form-group checkbox-group" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                                <label for="enable2FA" class="checkbox-label">
+                                    <input type="checkbox" id="enable2FA">
+                                    <strong>Enable Two-Factor Authentication (2FA)</strong>
+                                </label>
+                            </div>
+                            <div id="setup2FAGroup" style="display: none; margin-top: 10px; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                <label style="display: block; font-size: 13px; margin-bottom: 5px; color: rgba(255,255,255,0.8);">2FA Secret Key (Base32):</label>
+                                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <input type="text" id="twoFactorSecret" placeholder="Generating..." readonly style="flex: 1; font-family: monospace; letter-spacing: 1px; color: #fff; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 6px;">
+                                    <button type="button" class="admin-action-btn" id="generate2FASecretBtn" style="padding: 0 15px; border-radius: 6px; background: #ff7675; border: none; color: #fff; cursor: pointer;">Generate Key</button>
+                                </div>
+                                <div id="container2FAQr" style="display: none; text-align: center; margin-top: 15px;">
+                                    <div style="background: white; padding: 10px; display: inline-block; border-radius: 8px;">
+                                        <img id="image2FAQr" src="" alt="Scan QR Code" style="display: block; width: 150px; height: 150px;">
+                                    </div>
+                                    <p style="font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 8px; margin-bottom: 0;">Scan this QR code in Google Authenticator or Microsoft Authenticator.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin-form-row">
+                            <div class="admin-form-group">
+                                <label for="discordUserId">Discord User ID (Lanyard API)</label>
+                                <input type="text" id="discordUserId" placeholder="1213100866916196423">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="fallbackEmail">Fallback Contact Email</label>
+                                <input type="email" id="fallbackEmail" placeholder="email@gmail.com">
+                            </div>
+                        </div>
+                        <div class="admin-form-row">
+                            <div class="admin-form-group">
+                                <label for="baseViews">Base View Count Offset</label>
+                                <input type="number" id="baseViews" placeholder="14280">
+                            </div>
+                        </div>
+                        <div class="admin-section-divider">Discord Webhooks Setup</div>
+                        <div class="admin-form-group">
+                            <label for="webhookViews">Views Webhook URL</label>
+                            <input type="text" id="webhookViews" placeholder="https://discord.com/api/webhooks/...">
+                        </div>
+                        <div class="admin-form-group">
+                            <label for="webhookContact">Contact Messages Webhook URL</label>
+                            <input type="text" id="webhookContact" placeholder="https://discord.com/api/webhooks/...">
+                        </div>
+                        <div class="admin-form-group">
+                            <label for="webhookIntrusion">Intrusion Alerts Webhook URL</label>
+                            <input type="text" id="webhookIntrusion" placeholder="https://discord.com/api/webhooks/...">
+                        </div>
+                        <div class="admin-form-group">
+                            <label for="webhookDuration">Stay Duration Webhook URL</label>
+                            <input type="text" id="webhookDuration" placeholder="https://discord.com/api/webhooks/...">
+                        </div>
+                        <div class="admin-form-group">
+                            <label for="webhookMusicSearch">Music Search Webhook URL</label>
+                            <input type="text" id="webhookMusicSearch" placeholder="https://discord.com/api/webhooks/...">
+                        </div>
+                        <div class="admin-form-group">
+                            <label for="webhookAdminLogin">Admin Login Webhook URL</label>
+                            <input type="text" id="webhookAdminLogin" placeholder="https://discord.com/api/webhooks/...">
+                        </div>
+                        <div class="admin-form-group">
+                            <label for="webhookAdminChanges">Admin Changes Webhook URL</label>
+                            <input type="text" id="webhookAdminChanges" placeholder="https://discord.com/api/webhooks/...">
+                        </div>
+                    </div>
+                    
+                    <!-- Profile Tab -->
+                    <div class="admin-tab-pane" id="tab-profile">
+                        <div class="admin-form-row">
+                            <div class="admin-form-group">
+                                <label for="pageTitle">Tab Title Tag</label>
+                                <input type="text" id="pageTitle" placeholder="Tab title...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="profileUsername">Username Title</label>
+                                <input type="text" id="profileUsername" placeholder="𝐸𝓂𝑜𝓃.7𝓍𝒳">
+                            </div>
+                        </div>
+                        <div class="admin-form-row">
+                            <div class="admin-form-group">
+                                <label for="profileAvatar">Main Profile Avatar URL</label>
+                                <input type="text" id="profileAvatar" placeholder="https://...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="profileDecoration">Avatar Decoration URL</label>
+                                <input type="text" id="profileDecoration" placeholder="https://...">
+                            </div>
+                        </div>
+                        <div class="admin-form-row">
+                            <div class="admin-form-group checkbox-group">
+                                <label for="profileVerified" class="checkbox-label">
+                                    <input type="checkbox" id="profileVerified">
+                                    Show Verified badge next to username
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-section-divider">Social Platform Links</div>
+                        <div class="social-links-grid">
+                            <div class="admin-form-group">
+                                <label for="socialFacebook">Facebook Link</label>
+                                <input type="text" id="socialFacebook" placeholder="https://facebook.com/...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="socialInstagram">Instagram Link</label>
+                                <input type="text" id="socialInstagram" placeholder="https://instagram.com/...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="socialTiktok">TikTok Link</label>
+                                <input type="text" id="socialTiktok" placeholder="https://tiktok.com/@...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="socialThreads">Threads Link</label>
+                                <input type="text" id="socialThreads" placeholder="https://threads.net/@...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="socialX">X/Twitter Link</label>
+                                <input type="text" id="socialX" placeholder="https://x.com/...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="socialGithub">GitHub Link</label>
+                                <input type="text" id="socialGithub" placeholder="https://github.com/...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="socialPinterest">Pinterest Link</label>
+                                <input type="text" id="socialPinterest" placeholder="https://pinterest.com/...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="socialTelegram">Telegram Link</label>
+                                <input type="text" id="socialTelegram" placeholder="https://t.me/...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="socialDiscord">Discord Profile Link</label>
+                                <input type="text" id="socialDiscord" placeholder="https://discord.com/users/...">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="socialLinkedin">LinkedIn Link</label>
+                                <input type="text" id="socialLinkedin" placeholder="https://linkedin.com/in/...">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- About & Clock Tab -->
+                    <div class="admin-tab-pane" id="tab-about">
+                        <div class="admin-form-group">
+                            <label for="aboutDescription">Bio Description (Supports HTML, e.g. &lt;em&gt;&lt;br&gt;)</label>
+                            <textarea id="aboutDescription" rows="6" placeholder="Bio text..."></textarea>
+                        </div>
+                        <div class="admin-form-row">
+                            <div class="admin-form-group">
+                                <label for="clockTimezone">Local Clock Timezone</label>
+                                <input type="text" id="clockTimezone" placeholder="Asia/Dhaka">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="aboutLocation">Location Label</label>
+                                <input type="text" id="aboutLocation" placeholder="Bangladesh">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="aboutLocationFlag">Location Flag ISO Code</label>
+                                <input type="text" id="aboutLocationFlag" placeholder="BD">
+                            </div>
+                        </div>
+                        <div class="admin-section-divider">Discord Widgets Invite Codes</div>
+                        <div class="admin-form-row">
+                            <div class="admin-form-group">
+                                <label for="widgetServer1">Server 1 Invite Code (Now Playing slide)</label>
+                                <input type="text" id="widgetServer1" placeholder="x9xWhcQVAj">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="widgetServer2">Server 2 Invite Code (About Me slide)</label>
+                                <input type="text" id="widgetServer2" placeholder="Yw9MePfU8h">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Projects & Skills Tab -->
+                    <div class="admin-tab-pane" id="tab-projects">
+                        <div class="admin-section-divider">Manage Skills Badges</div>
+                        <div class="admin-list-container" id="adminSkillsList">
+                            <!-- Dynamic skills list -->
+                        </div>
+                        <button type="button" class="admin-action-btn add-btn" id="addSkillBtn">+ Add New Skill Badge</button>
+                        
+                        <div class="admin-section-divider" style="margin-top: 30px;">Manage Projects Card List</div>
+                        <div class="admin-list-container" id="adminProjectsList">
+                            <!-- Dynamic projects list -->
+                        </div>
+                        <button type="button" class="admin-action-btn add-btn" id="addProjectBtn">+ Add New Project Card</button>
+                    </div>
+                    
+                    <!-- Playlist Tab -->
+                    <div class="admin-tab-pane" id="tab-playlist">
+                        <div class="admin-section-divider">Manage Music Playlist Tracks</div>
+                        <div class="admin-list-container" id="adminPlaylistTracks">
+                            <!-- Dynamic tracks list -->
+                        </div>
+                        <button type="button" class="admin-action-btn add-btn" id="addTrackBtn">+ Add New Song to Playlist</button>
+                        
+                        <div class="admin-section-divider" style="margin-top: 30px;">Manage Other Bios Links (Slide 4 Left)</div>
+                        <div class="admin-list-container" id="adminOtherBios">
+                            <!-- Dynamic other bios -->
+                        </div>
+
+                        <div class="admin-section-divider" style="margin-top: 30px;">Manage Custom Premium Buttons (Slide 4 Right)</div>
+                        <div class="admin-list-container" id="adminCustomButtons">
+                            <!-- Dynamic custom buttons -->
+                        </div>
+                    </div>
+                    
+                    <!-- Export Tab -->
+                    <div class="admin-tab-pane" id="tab-export">
+                        <p class="admin-pane-desc">To save your changes permanently in the project files, copy the configuration block below or click the button to download the revised <code>config.js</code> file, then overwrite your existing <code>config.js</code> file.</p>
+                        
+                        <div class="admin-export-box">
+                            <pre><code id="configExportCode"></code></pre>
+                        </div>
+                        
+                        <div class="admin-export-actions">
+                            <button type="button" class="admin-action-btn apply-btn" id="downloadConfigBtn">Download config.js File</button>
+                            <button type="button" class="admin-action-btn" id="copyConfigBtn">Copy Code to Clipboard</button>
+                            <button type="button" class="admin-action-btn delete-btn" id="resetConfigBtn">Reset All to Default Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-panel-footer">
+                <span class="admin-save-status" id="adminSaveStatus">Changes apply instantly to current session.</span>
+                <div class="admin-footer-buttons">
+                    <button type="button" class="admin-action-btn apply-btn" id="adminSaveBtn">Apply & Save All Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2FA Authentication Modal -->
+    <div id="twoFactorModal" class="admin-panel-overlay" style="display: none; z-index: 2000000; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;">
+        <div style="background: rgba(15, 15, 15, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); font-family: sans-serif; color: #fff;">
+            <div style="margin-bottom: 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff7675" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <h3 style="margin: 0; font-size: 20px; font-weight: 600; color: #fff;">Verification Required</h3>
+                <p style="margin: 8px 0 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.5);">Please verify your Admin Password & 2FA Code to proceed.</p>
+            </div>
+            
+            <!-- Password Input -->
+            <div style="margin-bottom: 15px; text-align: left;">
+                <label style="display: block; font-size: 12px; margin-bottom: 6px; color: rgba(255,255,255,0.7);">Admin Password:</label>
+                <input type="password" id="twoFactorPasswordInput" placeholder="Enter Admin Password" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; font-size: 15px; width: 100%; box-sizing: border-box; color: #fff; outline: none; transition: border 0.3s;">
+            </div>
+
+            <!-- 2FA Code Input -->
+            <div style="margin-bottom: 20px; text-align: left;">
+                <label style="display: block; font-size: 12px; margin-bottom: 6px; color: rgba(255,255,255,0.7);">2FA Authenticator Code:</label>
+                <input type="text" id="twoFactorInput" maxlength="6" placeholder="000000" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; font-size: 20px; text-align: center; letter-spacing: 4px; width: 100%; box-sizing: border-box; color: #fff; outline: none; transition: border 0.3s;" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                <div id="twoFactorError" style="color: #ff7675; font-size: 12px; margin-top: 8px; display: none;">❌ Invalid credentials. Please try again.</div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button type="button" id="twoFactorCancelBtn" style="flex: 1; padding: 12px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.08); color: #fff; font-size: 14px; cursor: pointer; transition: background 0.2s;">Cancel</button>
+                <button type="button" id="twoFactorVerifyBtn" style="flex: 1; padding: 12px; border-radius: 8px; background: #ff7675; border: none; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.2s;">Verify</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="config.js?v=3000000"></script>
+    <script src="script.min.js?v=3000000"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"0a637a38e31d4f2f865427e77da3598c","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Your Bio Link | Shahon Bio Templates</title>
+    <link rel="icon" type="image/png" href="./assets/media/shahon_avatar.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Mono:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body class="setup-page-body">
+
+    <div class="setup-container">
+        <div class="setup-card">
+            
+            <div style="text-align: center;">
+                <div class="setup-header-badge">👑 Shahon Templates • Client Onboarding</div>
+                <h1 class="setup-title">Activate Your Custom Bio</h1>
+                <p class="setup-subtitle">
+                    Enter your Discord User ID and Server link below. Your personalized bio link with your name, avatar, angel wings, and community server will generate automatically!
+                </p>
+            </div>
+
+            <!-- FORM: DISCORD USER ID & SERVER LINK -->
+            <div id="stepLinkSection">
+                <div class="form-group">
+                    <label for="setupDiscordId">1. Your 18-Digit Discord User ID</label>
+                    <input type="text" id="setupDiscordId" class="master-pin-input" style="font-size:15px; letter-spacing:1px; text-align:left;" placeholder="e.g. 1525762942081962096" required>
+                    <small style="color:#94a3b8; margin-top:4px; display:block;">
+                        💡 Right click your profile in Discord &rarr; "Copy User ID".
+                    </small>
+                </div>
+
+                <div class="form-group" style="margin-top:16px;">
+                    <label for="setupServerInvite">2. Your Discord Server Invite Link (Optional)</label>
+                    <input type="text" id="setupServerInvite" placeholder="e.g. https://discord.gg/yourserver or yourcode">
+                    <small style="color:#94a3b8; margin-top:4px; display:block;">
+                        Displays your live server widget with icon, member count & Join button.
+                    </small>
+                </div>
+
+                <div class="form-group" style="margin-top:16px;">
+                    <label for="setupTheme">3. Choose Your Bio Template Theme</label>
+                    <select id="setupTheme" style="padding:10px 14px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.12); color:#fff; border-radius:10px; width:100%; font-family:var(--font-main); font-size:13.5px;">
+                        <option value="cyber_rose">🌹 #1 Dark Cyber Rose (Default Luxury)</option>
+                        <option value="crimson_samurai">⚔️ #2 Crimson Blood Samurai</option>
+                        <option value="neon_cyberpunk">⚡ #3 Neon Cyberpunk 2077</option>
+                        <option value="lofi_rain">🌧️ #4 Aesthetic Lo-Fi Rain</option>
+                        <option value="emerald_matrix">💻 #5 Emerald Matrix Hacker</option>
+                        <option value="royal_gold">👑 #6 Royal 24K Gold Sovereign</option>
+                        <option value="ice_frost">❄️ #7 Glacial Ice Frost</option>
+                        <option value="dark_sakura">🌸 #8 Dark Cherry Blossom</option>
+                        <option value="synthwave_80s">🌆 #9 Retro Synthwave 80s</option>
+                        <option value="obsidian_minimal">⬛ #10 Obsidian Stealth Minimal</option>
+                        <option value="toxic_grunge">☣️ #11 Toxic Acid Streetwear</option>
+                        <option value="celestial_galaxy">🌌 #12 Celestial Cosmic Galaxy</option>
+                    </select>
+                </div>
+
+                <button type="button" id="setupSyncBtn" class="discord-link-big-btn" style="margin-top:20px;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1a14.66 14.66 0 0 0-4.58 0a10.14 10.14 0 0 0-.53-1.1a16 16 0 0 0-4.13 1.3a17.33 17.33 0 0 0-3 11.59a16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83a3.39 3.39 0 0 0 .42-.33a11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84a12.41 12.41 0 0 0 1.08 1.78a16.44 16.44 0 0 0 5.06-2.59a17.22 17.22 0 0 0-3-11.59a16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.93 1.93 0 0 1 1.8 2a1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.92 1.92 0 0 1 1.8 2a1.92 1.92 0 0 1-1.8 2z"/>
+                    </svg>
+                    <span>⚡ Link Discord ID & Server</span>
+                </button>
+            </div>
+
+            <!-- SUCCESS BANNER & PERSONAL LINK -->
+            <div id="setupSuccessBox" class="client-success-box">
+                <!-- User & Server Mini Preview -->
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <div style="position:relative; width:52px; height:52px; flex-shrink:0;">
+                            <img id="resAvatar" src="./assets/media/shahon_avatar.png" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid #10b981;">
+                            <img id="resDeco" src="./assets/media/avatar_decoration.png" style="position:absolute; top:-7px; left:-7px; width:66px; height:66px; pointer-events:none; display:none;">
+                        </div>
+                        <div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <h3 id="resDisplayName" style="font-size:16px; font-weight:700; color:#fff;">DANGER SHAWON</h3>
+                                <span style="background:rgba(16,185,129,0.2); color:#10b981; font-size:11px; padding:2px 8px; border-radius:12px; font-weight:600;">ACTIVE</span>
+                            </div>
+                            <div id="resUsername" style="font-size:12.5px; color:#94a3b8;">@mjshahon</div>
+                        </div>
+                    </div>
+
+                    <!-- Server Badge Preview -->
+                    <div id="resServerPreview" style="display:none; align-items:center; gap:8px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08); padding:6px 12px; border-radius:8px;">
+                        <img id="resServerIcon" src="./assets/media/shahon_avatar.png" style="width:28px; height:28px; border-radius:8px;">
+                        <div>
+                            <div id="resServerName" style="font-size:12px; font-weight:600; color:#fff;">Server</div>
+                            <div id="resServerMembers" style="font-size:10.5px; color:#10b981;">Connected</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:12px;">
+                    <label style="color:#10b981; font-weight:700; font-size:12px; text-transform:uppercase;">🎉 Your Shareable Custom Bio Link:</label>
+                    <div style="display:flex; gap:8px;">
+                        <input type="text" id="finalBioLinkInput" readonly style="font-family:var(--font-mono); font-size:12px; background:rgba(0,0,0,0.5); border-color:rgba(16,185,129,0.4); color:#6ee7b7;">
+                        <button type="button" id="copyFinalLinkBtn" class="btn-admin btn-admin-primary" style="white-space:nowrap; padding:9px 14px; font-size:12.5px;">📋 Copy Link</button>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:10px; margin-top:14px;">
+                    <a id="openFinalLinkBtn" href="index.html" target="_blank" class="btn-admin btn-admin-success" style="flex:1; justify-content:center; padding:11px 16px; text-decoration:none;">
+                        🚀 Open My Live Bio Page
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin-top:24px; text-align:center; font-size:11.5px; color:#64748b;">
+                Powered by Shahon Cyber OS • Automatically verified & saved into store database.
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="admin-toast" id="setupToast">
+        <span class="toast-icon">✨</span>
+        <span class="toast-msg">Linked successfully!</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const setupDiscordId = document.getElementById('setupDiscordId');
+        const setupServerInvite = document.getElementById('setupServerInvite');
+        const setupSyncBtn = document.getElementById('setupSyncBtn');
+        const setupSuccessBox = document.getElementById('setupSuccessBox');
+        
+        const resAvatar = document.getElementById('resAvatar');
+        const resDeco = document.getElementById('resDeco');
+        const resDisplayName = document.getElementById('resDisplayName');
+        const resUsername = document.getElementById('resUsername');
+        
+        const resServerPreview = document.getElementById('resServerPreview');
+        const resServerIcon = document.getElementById('resServerIcon');
+        const resServerName = document.getElementById('resServerName');
+        const resServerMembers = document.getElementById('resServerMembers');
+
+        const finalBioLinkInput = document.getElementById('finalBioLinkInput');
+        const copyFinalLinkBtn = document.getElementById('copyFinalLinkBtn');
+        const openFinalLinkBtn = document.getElementById('openFinalLinkBtn');
+        const toast = document.getElementById('setupToast');
+
+        function showToast(msg) {
+            if (!toast) return;
+            toast.querySelector('.toast-msg').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        function extractCleanInvite(input) {
+            if (!input) return '';
+            let str = input.trim().split('?')[0].split('#')[0];
+            str = str.replace(/^(?:https?:\/\/)?(?:www\.)?(?:discord\.gg\/|discord\.com\/invite\/)/i, '');
+            return str.replace(/\/+$/, '').trim();
+        }
+
+        async function resolveAndActivate() {
+            const uid = setupDiscordId.value.trim();
+            if (!uid) {
+                alert('Please enter your 18-digit Discord User ID.');
+                return;
+            }
+
+            const rawServer = setupServerInvite.value.trim();
+            const cleanServer = extractCleanInvite(rawServer);
+
+            setupSyncBtn.disabled = true;
+            setupSyncBtn.innerHTML = '<span>⏳ Linking Discord Profile & Server...</span>';
+
+            let profile = {
+                id: uid,
+                displayName: '',
+                username: '',
+                avatar: '',
+                deco: '',
+                status: 'dnd',
+                server: cleanServer,
+                serverName: '',
+                serverIcon: '',
+                serverCount: ''
+            };
+
+            // 1. Fetch Discord User from Gateway (japi.rest)
+            try {
+                const jRes = await fetch(`https://japi.rest/discord/v1/user/${uid}`);
+                if (jRes.ok) {
+                    const jData = await jRes.json();
+                    if (jData && jData.data && jData.data.username) {
+                        const u = jData.data;
+                        profile.displayName = u.global_name || u.username;
+                        profile.username = u.username;
+                        profile.avatar = u.avatarURL || (u.avatar ? `https://cdn.discordapp.com/avatars/${uid}/${u.avatar}.png?size=512` : '');
+                        if (u.avatar_decoration_data && u.avatar_decoration_data.asset) {
+                            profile.deco = `https://cdn.discordapp.com/avatar-decoration-presets/${u.avatar_decoration_data.asset}.png`;
+                        }
+                    }
+                }
+            } catch(e) {}
+
+            // 2. Fetch Lanyard for Presence & Avatar
+            try {
+                const lRes = await fetch(`https://api.lanyard.rest/v1/users/${uid}`);
+                if (lRes.ok) {
+                    const lData = await lRes.json();
+                    if (lData.success && lData.data) {
+                        const d = lData.data;
+                        const u = d.discord_user;
+                        if (!profile.displayName) profile.displayName = u.global_name || u.username;
+                        if (!profile.username) profile.username = u.username;
+                        if (!profile.avatar && u.avatar) {
+                            profile.avatar = `https://cdn.discordapp.com/avatars/${uid}/${u.avatar}.${u.avatar.startsWith('a_') ? 'gif' : 'png'}?size=512`;
+                        }
+                        if (!profile.deco && u.avatar_decoration_data && u.avatar_decoration_data.asset) {
+                            profile.deco = `https://cdn.discordapp.com/avatar-decoration-presets/${u.avatar_decoration_data.asset}.png`;
+                        }
+                        if (d.discord_status) profile.status = d.discord_status;
+                    }
+                }
+            } catch(e) {}
+
+            if (!profile.avatar) {
+                try {
+                    const def = Number((BigInt(uid) >> 22n) % 6n);
+                    profile.avatar = `https://cdn.discordapp.com/embed/avatars/${def}.png`;
+                } catch {
+                    profile.avatar = './assets/media/shahon_avatar.png';
+                }
+            }
+            if (!profile.displayName) profile.displayName = `User_${uid.slice(-4)}`;
+            if (!profile.username) profile.username = `user_${uid.slice(-4)}`;
+
+            // 3. Fetch Discord Server Invite if provided
+            if (cleanServer) {
+                try {
+                    const sRes = await fetch(`https://discord.com/api/v10/invites/${cleanServer}?with_counts=true`);
+                    if (sRes.ok) {
+                        const sData = await sRes.json();
+                        if (sData && sData.guild) {
+                            const g = sData.guild;
+                            profile.serverName = g.name;
+                            profile.serverIcon = g.icon ? `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.png?size=128` : './assets/media/shahon_avatar.png';
+                            profile.serverCount = `${(sData.approximate_member_count || 0).toLocaleString()} Members`;
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            setupSyncBtn.disabled = false;
+            setupSyncBtn.innerHTML = `<span>⚡ Link Discord ID & Server</span>`;
+
+            // 4. Save into Database
+            const chosenTheme = setupTheme ? setupTheme.value : 'cyber_rose';
+            const slug = profile.username.toLowerCase().replace(/[^a-z0-9_-]/g, '');
+            const clientRecord = {
+                id: profile.id,
+                displayName: profile.displayName,
+                username: profile.username,
+                avatar: profile.avatar,
+                deco: profile.deco || './assets/media/avatar_decoration.png',
+                serverInvite: profile.server,
+                status: profile.status || 'dnd',
+                effect: 'white_roses',
+                theme: chosenTheme,
+                createdAt: new Date().toISOString(),
+                slug: slug
+            };
+
+            try {
+                const db = JSON.parse(localStorage.getItem('CLIENTS_DB')) || {};
+                db[slug] = clientRecord;
+                localStorage.setItem('CLIENTS_DB', JSON.stringify(db));
+            } catch(e) {}
+
+            // 5. Render Success UI
+            resAvatar.src = clientRecord.avatar;
+            if (clientRecord.deco && clientRecord.deco !== 'none') {
+                resDeco.src = clientRecord.deco;
+                resDeco.style.display = 'block';
+            } else {
+                resDeco.style.display = 'none';
+            }
+            resDisplayName.textContent = clientRecord.displayName;
+            resUsername.textContent = `@${clientRecord.username}`;
+
+            if (cleanServer && profile.serverName) {
+                resServerIcon.src = profile.serverIcon;
+                resServerName.textContent = profile.serverName;
+                resServerMembers.textContent = profile.serverCount || 'Connected';
+                resServerPreview.style.display = 'flex';
+            } else {
+                resServerPreview.style.display = 'none';
+            }
+
+            // Build Shareable Link
+            const savedDomain = localStorage.getItem('custom_public_domain');
+            const origin = (savedDomain && savedDomain.trim()) 
+                ? savedDomain.trim().replace(/\/+$/, '') 
+                : (window.location.origin + window.location.pathname.replace('setup.html', '').replace(/\/$/, ''));
+            const params = new URLSearchParams({
+                u: slug,
+                theme: chosenTheme,
+                id: clientRecord.id,
+                name: clientRecord.displayName,
+                username: clientRecord.username,
+                status: clientRecord.status,
+                effect: 'white_roses'
+            });
+            if (cleanServer) params.set('server', cleanServer);
+
+            const directLink = `${origin}/index.html?${params.toString()}`;
+            finalBioLinkInput.value = directLink;
+            openFinalLinkBtn.href = directLink;
+
+            setupSuccessBox.classList.add('show');
+            showToast(`✨ Linked! Bio created for @${clientRecord.username}`);
+        }
+
+        // Auto-select theme if passed via URL (e.g. ?theme=crimson_samurai)
+        const setupUrlParams = new URLSearchParams(window.location.search);
+        if (setupUrlParams.has('theme') && setupTheme) {
+            setupTheme.value = setupUrlParams.get('theme');
+        }
+
+        if (setupSyncBtn) {
+            setupSyncBtn.addEventListener('click', resolveAndActivate);
+        }
+
+        if (copyFinalLinkBtn) {
+            copyFinalLinkBtn.addEventListener('click', () => {
+                if (finalBioLinkInput.value) {
+                    navigator.clipboard.writeText(finalBioLinkInput.value).then(() => {
+                        showToast('🔗 Your Bio Link copied to clipboard!');
+                    });
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>
