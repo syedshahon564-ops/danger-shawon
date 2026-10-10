@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTrackIdx = 0;
     let isPlaying = false;
     let isMuted = false;
-    let currentVolume = 0.75;
+    let currentVolume = 0.40;
     let currentSpeedIdx = 0;
     const playbackSpeeds = [1.0, 1.25, 1.5, 2.0];
     let lyricOffset = 0.0;
@@ -652,10 +652,9 @@ document.addEventListener('DOMContentLoaded', () => {
         pauseIcon.style.display = 'block';
         if (audioVisualizer) audioVisualizer.classList.add('playing');
 
-        bgVideo.muted = isMuted;
-        bgVideo.volume = currentVolume;
+        bgVideo.muted = true;
         mainAudio.muted = isMuted;
-        mainAudio.volume = currentVolume;
+        mainAudio.volume = isMuted ? 0 : currentVolume;
 
         mainAudio.play().catch(e => console.log('Audio play error:', e));
         

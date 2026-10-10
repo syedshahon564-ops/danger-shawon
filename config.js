@@ -79,7 +79,7 @@ const CONFIG = {
             id: 1,
             title: "You Broke My Heart (Gojo vs Sukuna Edit)",
             artist: "Drake",
-            videoUrl: "./assets/media/cut_loop.mp4",
+            videoUrl: "./assets/media/full_bg.mp4",
             audioUrl: "./assets/media/you_broke_my_heart.mp3",
             coverUrl: "./assets/media/cover_broke_heart.jpg",
             lyrics: [
