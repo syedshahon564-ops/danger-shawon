@@ -424,10 +424,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (customDomain && customDomain.trim()) {
             return customDomain.trim().replace(/\/+$/, '');
         }
-        if (window.location.hostname.includes('github.io')) {
-            return window.location.origin + window.location.pathname.replace('admin.html', '').replace(/\/$/, '');
-        }
-        return 'https://syedshahon564-ops.github.io/danger-shawon';
+        const cleanPath = window.location.pathname.replace(/\/admin(?:\/.*)?$/, '').replace(/\/admin\.html$/, '').replace(/\/$/, '');
+        return window.location.origin + cleanPath;
     }
 
     function generateClientShareLink() {
@@ -652,8 +650,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (statTotal) statTotal.textContent = clientKeys.length;
 
-        // Set Buyer Onboarding Link (setup.html)
-        const setupUrl = getBaseOrigin() + '/setup.html';
+        // Set Buyer Onboarding Link (/client/index.html)
+        const setupUrl = getBaseOrigin() + '/client/index.html';
         if (buyerInput) buyerInput.value = setupUrl;
 
         if (!tbody) return;

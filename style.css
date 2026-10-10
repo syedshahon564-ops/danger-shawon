@@ -79,11 +79,15 @@ body.entered {
     min-height: 100%;
     width: auto;
     height: auto;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) translate3d(0, 0, 0);
     object-fit: cover;
     z-index: -3;
-    filter: brightness(0.62) contrast(1.06);
+    filter: brightness(0.72) contrast(1.08);
     transition: opacity 0.8s ease;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+    pointer-events: none;
 }
 
 .bg-overlay {

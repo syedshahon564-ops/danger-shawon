@@ -30,13 +30,13 @@ echo  [*] Automatically opening browser...
 echo.
 
 start "" "http://localhost:8080/index.html"
-start "" "http://localhost:8080/admin.html"
-start "" "http://localhost:8080/setup.html"
+start "" "http://localhost:8080/admin/index.html"
+start "" "http://localhost:8080/client/index.html"
 
 echo  --------------------------------------------------------------
 echo   LIVE ACCESS URLS:
-echo   - 👑 Master Admin:   http://localhost:8080/admin.html
-echo   - 👥 Buyer Setup:    http://localhost:8080/setup.html
+echo   - 👑 Master Admin:   http://localhost:8080/admin/index.html
+echo   - 👥 Buyer Setup:    http://localhost:8080/client/index.html
 echo   - 🌐 Live Bio Page:  http://localhost:8080/index.html
 echo  --------------------------------------------------------------
 echo   Server is LIVE! Keep this window open.

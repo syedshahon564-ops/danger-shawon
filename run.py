@@ -12,16 +12,16 @@ def open_browser():
     time.sleep(1.2)
     print("\n[*] Launching all 3 pages in browser simultaneously...")
     webbrowser.open("http://localhost:8080/index.html")
-    webbrowser.open("http://localhost:8080/admin.html")
-    webbrowser.open("http://localhost:8080/setup.html")
+    webbrowser.open("http://localhost:8080/admin/index.html")
+    webbrowser.open("http://localhost:8080/client/index.html")
 
 def main():
     print("=" * 65)
     print("  👑 SHAHON CYBER OS - MASTER BIO & TEMPLATES RUNNER")
     print("=" * 65)
     print("  - 🌐 Live Bio Page:  http://localhost:8080/index.html")
-    print("  - 👑 Master Admin:   http://localhost:8080/admin.html")
-    print("  - 👥 Buyer Portal:   http://localhost:8080/setup.html")
+    print("  - 👑 Master Admin:   http://localhost:8080/admin/index.html")
+    print("  - 👥 Buyer Portal:   http://localhost:8080/client/index.html")
     print("=" * 65)
 
     threading.Thread(target=open_browser, daemon=True).start()

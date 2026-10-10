@@ -77,96 +77,20 @@ const CONFIG = {
     playlist: [
         {
             id: 1,
-            title: "YAD (Яд) English Version",
-            artist: "Vanna Rainelle",
-            videoUrl: "./assets/media/track_yad.mp4",
-            audioUrl: "./assets/media/track_yad.mp3",
-            coverUrl: "./assets/media/cover_yad.jpg",
+            title: "You Broke My Heart (Gojo vs Sukuna Edit)",
+            artist: "Drake",
+            videoUrl: "./assets/media/cut_loop.mp4",
+            audioUrl: "./assets/media/you_broke_my_heart.mp3",
+            coverUrl: "./assets/media/cover_broke_heart.jpg",
             lyrics: [
-                { time: 0.0, text: "Sweet like venom, flowin' through my veins" },
-                { time: 4.2, text: "Taste your poison, taking away the pain" },
-                { time: 8.8, text: "Caught in the trap of your dangerous eyes" },
-                { time: 13.5, text: "Burning inside like fire in the skies" },
-                { time: 18.2, text: "Say my name, do you feel the fire?" },
-                { time: 23.8, text: "Lost in the shadows of pure desire" },
-                { time: 29.5, text: "Яд, сладкий яд..." },
-                { time: 35.2, text: "Every touch is like electricity" },
-                { time: 42.0, text: "You and me in this sweet infinity" }
-            ]
-        },
-        {
-            id: 2,
-            title: "No Lie (Speed Up)",
-            artist: "Sean Paul ft. Dua Lipa",
-            videoUrl: "./assets/media/track_1.mp4",
-            audioUrl: "./assets/media/track_1.mp3",
-            coverUrl: "./assets/media/cover_1.jpg",
-            lyrics: [
-                { time: 0.0, text: "Feel your eyes, they all over me" },
-                { time: 2.2, text: "Don't be shy, take control of me" },
-                { time: 4.8, text: "Get the vibe, it's gonna be a lit night" },
-                { time: 7.2, text: "Baby boy, you know there's no lie, no lie" },
-                { time: 9.8, text: "Look into my eyes, I'm down for whatever" }
-            ]
-        },
-        {
-            id: 3,
-            title: "Espresso (Aesthetic)",
-            artist: "Sabrina Carpenter",
-            videoUrl: "./assets/media/track_2.mp4",
-            audioUrl: "./assets/media/track_2.mp3",
-            coverUrl: "./assets/media/cover_2.jpg",
-            lyrics: [
-                { time: 0.0, text: "Now he's thinkin' 'bout me every night, oh" },
-                { time: 2.5, text: "Is it that sweet? I guess so" },
-                { time: 4.8, text: "Say you can't sleep, baby, I know" },
-                { time: 7.2, text: "That's that me, espresso" },
-                { time: 9.5, text: "Move it up, down, left, right, oh" }
-            ]
-        },
-        {
-            id: 4,
-            title: "yad ( яд ) - Speed Up",
-            artist: "Erika Lundmoen",
-            videoUrl: "./assets/media/track_3.mp4",
-            audioUrl: "./assets/media/track_3.mp3",
-            coverUrl: "./assets/media/cover_3.jpg",
-            lyrics: [
-                { time: 0.0, text: "Твой сладкий яд меня дурманит" },
-                { time: 2.8, text: "И сердце медленно сгорает" },
-                { time: 5.5, text: "В плену твоих опасных глаз" },
-                { time: 8.2, text: "Я растворяюсь каждый раз" },
-                { time: 11.0, text: "No lie, you keep me up all night" }
-            ]
-        },
-        {
-            id: 5,
-            title: "Collide (Slowed)",
-            artist: "Justine Skye",
-            videoUrl: "./assets/media/track_4.mp4",
-            audioUrl: "./assets/media/track_4.mp3",
-            coverUrl: "./assets/media/cover_4.jpg",
-            lyrics: [
-                { time: 0.0, text: "I've been thinkin' 'bout you all day" },
-                { time: 2.7, text: "Baby, you know what I want to say" },
-                { time: 5.5, text: "When our shadows touch the floor" },
-                { time: 8.3, text: "I can't help but ask for more" },
-                { time: 11.2, text: "Let's collide tonight..." }
-            ]
-        },
-        {
-            id: 6,
-            title: "Beretta (Slowed)",
-            artist: "Losy",
-            videoUrl: "./assets/media/track_5.mp4",
-            audioUrl: "./assets/media/track_5.mp3",
-            coverUrl: "./assets/media/cover_5.jpg",
-            lyrics: [
-                { time: 0.0, text: "Riding through the midnight glow" },
-                { time: 2.8, text: "Everything is moving slow" },
-                { time: 5.6, text: "Neon lights upon the street" },
-                { time: 8.5, text: "Feel the rhythm and the beat" },
-                { time: 11.5, text: "Dangerous love, dangerous game" }
+                { time: 0.0, text: "I spent 50+ hours on this edit" },
+                { time: 4.5, text: "Gojo vs Sukuna • The Ultimate Clash" },
+                { time: 10.2, text: "You broke my heart..." },
+                { time: 16.8, text: "Domain Expansion: Infinite Void" },
+                { time: 24.5, text: "Throughout Heaven and Earth, I alone am the honored one" },
+                { time: 32.0, text: "Cleave and Dismantle..." },
+                { time: 40.5, text: "Turn the lights low..." },
+                { time: 48.6, text: "Neon Glow • Legends Never Die" }
             ]
         }
     ],

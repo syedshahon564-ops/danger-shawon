@@ -1,14 +1,17 @@
 """
 Shahon Cyber Portfolio & Bio-Link Server (server.py)
-Provides high-performance static file serving and real-time Video Downloader API via yt-dlp.
+Provides high-performance static file serving, real-time Video Downloader API via yt-dlp,
+and Built-in Anti-DDoS / Rate-Limiting Protection Shield.
 """
 import http.server
 import socketserver
 import json
 import os
 import sys
+import time
 import threading
 import urllib.parse
+from collections import defaultdict
 
 PORT = 8080
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
@@ -21,9 +24,62 @@ download_status = {
     "progress": 0
 }
 
+# -----------------------------------------------------------------------------
+# ANTI-DDOS & CONCURRENT TRAFFIC RATE LIMITER SHIELD
+# -----------------------------------------------------------------------------
+class AntiDDoSShield:
+    def __init__(self, max_requests=120, window_seconds=10, max_post_requests=20):
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self.max_post_requests = max_post_requests
+        self.requests = defaultdict(list)
+        self.post_requests = defaultdict(list)
+        self.lock = threading.Lock()
+
+    def is_allowed(self, ip, is_post=False):
+        now = time.time()
+        with self.lock:
+            # Clean old timestamps
+            self.requests[ip] = [t for t in self.requests[ip] if now - t < self.window_seconds]
+            if len(self.requests[ip]) >= self.max_requests:
+                return False, "Rate limit exceeded (Too many requests - Anti-DDoS Shield Active)"
+
+            if is_post:
+                self.post_requests[ip] = [t for t in self.post_requests[ip] if now - t < self.window_seconds]
+                if len(self.post_requests[ip]) >= self.max_post_requests:
+                    return False, "POST request rate limit exceeded (Anti-Spam Active)"
+                self.post_requests[ip].append(now)
+
+            self.requests[ip].append(now)
+            return True, None
+
+ddos_shield = AntiDDoSShield()
+
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
+
+    def end_headers(self):
+        # Security & Anti-DDoS HTTP Headers
+        self.send_header('X-Content-Type-Options', 'nosniff')
+        self.send_header('X-Frame-Options', 'SAMEORIGIN')
+        self.send_header('X-XSS-Protection', '1; mode=block')
+        self.send_header('Referrer-Policy', 'strict-origin-when-cross-origin')
+        self.send_header('Cache-Control', 'public, max-age=3600')
+        super().end_headers()
+
+    def check_rate_limit(self, is_post=False):
+        client_ip = self.client_address[0] if hasattr(self, 'client_address') and self.client_address else '127.0.0.1'
+        allowed, msg = ddos_shield.is_allowed(client_ip, is_post)
+        if not allowed:
+            self.send_response(429)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Retry-After', '5')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": "429 Too Many Requests", "message": msg}).encode('utf-8'))
+            return False
+        return True
 
     def do_OPTIONS(self):
         self.send_response(200)
@@ -33,6 +89,9 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        if not self.check_rate_limit(is_post=False):
+            return
+
         parsed = urllib.parse.urlparse(self.path)
         if parsed.path == '/api/video/status':
             self.send_response(200)
@@ -60,6 +119,9 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+        if not self.check_rate_limit(is_post=True):
+            return
+
         parsed = urllib.parse.urlparse(self.path)
         if parsed.path == '/api/clients/save':
             content_length = int(self.headers.get('Content-Length', 0))
@@ -190,6 +252,7 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
 class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
     daemon_threads = True
     allow_reuse_address = True
+    request_queue_size = 256
 
 if __name__ == '__main__':
     try:

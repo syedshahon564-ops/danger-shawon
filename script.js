@@ -695,17 +695,35 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTimeText.textContent = formatTime(cur);
         totalDurationText.textContent = formatTime(dur);
 
-        // Keep video synced with audio only when playing playlist-synced video
+        // Keep video synced with audio only when playing a full-length matching video
         const hasCustomBg = !!(new URLSearchParams(window.location.search).get('bg') || localStorage.getItem('custom_bg_video'));
-        if (!hasCustomBg && Math.abs(bgVideo.currentTime - cur) > 0.25) {
-            bgVideo.currentTime = cur;
+        if (!hasCustomBg && bgVideo && bgVideo.duration && bgVideo.duration >= dur - 1.0) {
+            if (Math.abs(bgVideo.currentTime - cur) > 0.35) {
+                bgVideo.currentTime = cur;
+            }
         }
 
         highlightLyrics(cur + lyricOffset);
     });
 
     mainAudio.addEventListener('ended', () => {
-        loadTrack(currentTrackIdx + 1, true);
+        if (CONFIG.playlist && CONFIG.playlist.length <= 1) {
+            mainAudio.currentTime = 0;
+            mainAudio.play().catch(() => {});
+        } else {
+            loadTrack(currentTrackIdx + 1, true);
+        }
+    });
+
+    // Bulletproof Audio Error Recovery
+    mainAudio.addEventListener('error', (e) => {
+        console.warn('Audio playback glitch detected, auto-recovering:', e);
+        setTimeout(() => {
+            if (isPlaying) {
+                mainAudio.load();
+                mainAudio.play().catch(() => {});
+            }
+        }, 300);
     });
 
     progressBarContainer.addEventListener('click', (e) => {
